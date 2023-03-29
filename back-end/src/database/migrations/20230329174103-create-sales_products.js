@@ -23,7 +23,10 @@ module.exports = {
           key: 'id',
         }
       },
-      quantity: Sequelize.INTEGER,
+      quantity: {
+        type: Sequelize.INTERGER,
+        allowNull: false,
+      },
     });
   },
 

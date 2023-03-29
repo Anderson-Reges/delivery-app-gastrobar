@@ -27,11 +27,26 @@ module.exports = {
           key: 'id',
         }
       },
-      total_price: Sequelize.DECIMAL(9,2),
-      delivery_address: Sequelize.STRING(100),
-      delivery_number: Sequelize.STRING(50),
-      sale_date: Sequelize.DATE,
-      status: Sequelize.STRING(50),
+      total_price: {
+        type: Sequelize.DECIMAL(9,2),
+        allowNull: false,
+      },
+      delivery_address: {
+        type: Sequelize.STRING(100),
+        allowNull: false,
+      },
+      delivery_number: {
+        type: Sequelize.STRING(50),
+        allowNull: false,
+      },
+      sale_date: {
+        type: Sequelize.DATE,
+        allowNull: false,
+      },
+      status: {
+        type: Sequelize.STRING(50),
+        allowNull: false,
+      },
     });
   },
 
