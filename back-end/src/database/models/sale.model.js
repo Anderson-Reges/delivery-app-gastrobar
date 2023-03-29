@@ -7,15 +7,15 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         autoIncrement: true,
       },
-      user_id: DataTypes.INTERGER,
-      seller_id: DataTypes.INTERGER,
-      total_price: DataTypes.DECIMAL,
-      delivery_address: DataTypes.STRING,
-      delivery_number: DataTypes.STRING,
-      sale_date: DataTypes.DATE,
+      userId: DataTypes.INTERGER,
+      sellerId: DataTypes.INTERGER,
+      totalPrice: DataTypes.DECIMAL,
+      deliveryAddress: DataTypes.STRING,
+      deliveryNumber: DataTypes.STRING,
+      saleDate: DataTypes.DATE,
       status: DataTypes.STRING
     },
-    { timestamps: false }
+    { timestamps: false, underscored: true, tableName: 'sales' }
   );
 
   Sale.associate = (models) => {
