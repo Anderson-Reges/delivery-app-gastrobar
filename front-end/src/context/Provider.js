@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
+import api from '../utils/fetch';
 import MyContext from './Context';
 
 function MeuProvider({ children }) {
@@ -9,7 +10,21 @@ function MeuProvider({ children }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loggin, setloggin] = useState(false);
   const [register, setregister] = useState(false);
-  const [Err, setErr] = useState(false);
+  const [Err, setErr] = useState('');
+  const [disable, setDisable] = useState(true);
+
+  const postLogin = async () => api('POST', 'login', { email, password })
+    .then((info) => {
+      localStorage.setItem('user', JSON.stringify(info.data));
+      setIsLoggedIn(true);
+    })
+    .catch(() => {
+      setIsLoggedIn(false);
+      setErr(true);
+    });
+
+  // const postRegister = async (newUser) => api('POST', 'register', newUser)
+  //   .then((info) => );
 
   const contextValue = useMemo(() => ({
     username,
@@ -26,7 +41,10 @@ function MeuProvider({ children }) {
     setemail,
     loggin,
     setloggin,
-  }), [username, password, Err, register, email, loggin]);
+    postLogin,
+    disable,
+    setDisable,
+  }), [username, password, Err, register, email, loggin, isLoggedIn]);
 
   return (
     <MyContext.Provider value={ contextValue }>

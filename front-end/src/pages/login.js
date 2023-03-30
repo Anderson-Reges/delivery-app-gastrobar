@@ -1,29 +1,26 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import '../App.css';
 import { Redirect } from 'react-router-dom';
 import MyContext from '../context/Context';
-import validateLogin from '../validation/login.validation';
 
 export default function Login() {
   const {
-    username,
-    setUsername,
     password,
     setPassword,
-    isLoggedIn, setIsLoggedIn,
+    isLoggedIn,
     Err,
-    setErr,
     register,
-    setregister } = useContext(MyContext);
+    setregister,
+    postLogin,
+    email,
+    setemail,
+    disable,
+    setDisable,
+  } = useContext(MyContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const erro = validateLogin(username, password);
-    if (erro) {
-      return setErr(true); // se encontrar um erro ele avisa a tela que tem um erro.
-    }
-    setErr(false);
-    setIsLoggedIn(true);
+    await postLogin();
   };
 
   const Red = async (e) => {
@@ -32,13 +29,25 @@ export default function Login() {
     setregister(true);
   };
 
-  if (isLoggedIn) {
-    <div>
-      { user.username }
-      {' '}
-      está logado!!
-    </div>;
-  }
+  const validateLogin = (Email, Password) => {
+    const minSizePass = 5;
+    const emailVerify = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(Email);
+    if (Email === '' || Password === '') {
+      return setDisable(true);
+    }
+    if (Password.length < minSizePass) {
+      return setDisable(true);
+    }
+    if (!emailVerify) {
+      return setDisable(true);
+    }
+    setDisable(false);
+  };
+
+  useEffect(() => {
+    validateLogin(email, password);
+  }, [email, password, setDisable, validateLogin]);
+
   if (register) return <Redirect to="/register" />;
   if (isLoggedIn) return <Redirect to="/home" />;
 
@@ -53,11 +62,11 @@ export default function Login() {
 
       </label>
       <input
-        data-testids="common_login__input-email"
+        data-testid="common_login__input-email"
         type="text"
-        value={ username }
+        value={ email }
         placeholder="insira um nome de usuário"
-        onChange={ ({ target }) => setUsername(target.value) }
+        onChange={ ({ target }) => setemail(target.value) }
       />
 
       <label
@@ -68,7 +77,7 @@ export default function Login() {
 
       </label>
       <input
-        data-testids="common_login__input-password"
+        data-testid="common_login__input-password"
         type="password"
         value={ password }
         placeholder="insira uma senha"
@@ -76,14 +85,15 @@ export default function Login() {
       />
 
       <button
-        data-testids="common_login__button-login"
+        data-testid="common_login__button-login"
         type="submit"
+        disabled={ disable }
       >
         Login
 
       </button>
       <button
-        data-testids="common_login__button-register"
+        data-testid="common_login__button-register"
         type="button"
         onClick={ Red }
       >
@@ -91,7 +101,7 @@ export default function Login() {
 
       </button>
       {Err
-        ? <h1 data-testids="common_login__element-invalid-email">   Erro  </h1>
+        ? <h1 data-testid="common_login__element-invalid-email">   Erro  </h1>
         : <div />}
     </form>
   );

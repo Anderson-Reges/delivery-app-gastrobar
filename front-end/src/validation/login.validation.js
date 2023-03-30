@@ -5,12 +5,12 @@ function validateEmail(email) {
 
 export default function validateLogin(username, password) {
   if (username === '' || password === '') {
-    return ('Digite seu email ou senha');
+    return true;
   }
   if (password.length < minSizePass) {
-    return ('Senha com menos de seis digitos');
+    return true;
   }
   if (!validateEmail(username)) {
-    return ('Formato de email inválido');
+    return true;
   }
 }
