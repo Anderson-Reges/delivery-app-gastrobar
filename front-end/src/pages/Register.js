@@ -43,7 +43,7 @@ export default function Register() {
 
       </label>
       <input
-        data-testids="common_register__input-name"
+        data-testid="common_register__input-name"
         type="text"
         value={ username }
         placeholder="insira um nome de usuário"
@@ -57,7 +57,7 @@ export default function Register() {
 
       </label>
       <input
-        data-testids="common_register__input-email"
+        data-testid="common_register__input-email"
         type="email"
         value={ email }
         placeholder="insira um email"
@@ -72,7 +72,7 @@ export default function Register() {
 
       </label>
       <input
-        data-testids="common_register__input-password"
+        data-testid="common_register__input-password"
         type="password"
         value={ password }
         placeholder="insira uma senha"
@@ -80,14 +80,14 @@ export default function Register() {
       />
 
       <button
-        data-testids=" common_register__button-register"
+        data-testid=" common_register__button-register"
         type="submit"
       >
         Register
 
       </button>
       {Err
-        ? <h1 data-testids="common_register__element-invalid_register">   Erro  </h1>
+        ? <h1 data-testid="common_register__element-invalid_register">   Erro  </h1>
         : <div />}
     </form>
   );
