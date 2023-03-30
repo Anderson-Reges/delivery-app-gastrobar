@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const md5 = require('md5');
 const { User } = require('../../database/models');
 
 const secret = process.env.JWT_SECRET;
@@ -15,6 +16,29 @@ const Login = async (email, _password) => {
   };
 };
 
+const Register = async (newAccount) => {
+  const pass = md5(newAccount.password);
+  const newUser = {
+    name: newAccount.name,
+    email: newAccount.email,
+    role: newAccount.role || 'customer',
+  };
+  const token = jwt.sign(newUser, secret, jwtConfig);
+  const account = {
+    name: newAccount.name,
+    email: newAccount.email,
+    password: pass,
+    role: newAccount.role || 'customer', 
+  };
+  await User.create(account);
+
+  return {
+    ...newUser,
+    token,
+  };
+};
+
 module.exports = {
   Login,
+  Register,
 };
