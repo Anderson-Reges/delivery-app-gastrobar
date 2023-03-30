@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import '../App.css';
 import { Redirect } from 'react-router-dom';
 import MyContext from '../context/Context';
+import validateRegister from '../validation/register.validation';
 
 export default function Register() {
   const { username,
@@ -23,10 +24,10 @@ export default function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(e.target);
-    console.log(username);
-    console.log(password);
-    if (username === '' || password === '') return setErr(true);
+    const erro = validateRegister(username, password, email);
+    if (erro) {
+      return setErr(true); // se encontrar um erro ele avisa a tela que tem um erro.
+    }
     setloggin(true);
     setErr(false);
   };
