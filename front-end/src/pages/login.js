@@ -2,9 +2,11 @@ import React, { useContext } from 'react';
 import '../App.css';
 import { Redirect } from 'react-router-dom';
 import MyContext from '../context/Context';
+import validateLogin from '../validation/login.validation';
 
 export default function Login() {
-  const { username,
+  const {
+    username,
     setUsername,
     password,
     setPassword,
@@ -16,16 +18,14 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(e.target);
-    console.log(username);
-    console.log(password);
-    if (username === '' || password === '') {
-      console.log('erro');
-      return setErr(true);
+    const erro = validateLogin(username, password);
+    if (erro) {
+      return setErr(true); // se encontrar um erro ele avisa a tela que tem um erro.
     }
     setErr(false);
     setIsLoggedIn(true);
   };
+
   const Red = async (e) => {
     e.preventDefault();
     console.log('register');
