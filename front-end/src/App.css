@@ -52,3 +52,32 @@
     transform: rotate(-10deg);
   }
 }
+
+form {
+  align-items: center;
+  background-color: #99cf65;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  height: 350px;
+  justify-content: center;
+  width: 480px;
+}
+
+label {
+  color: black;
+}
+
+button {
+  border-radius: 15px;
+  width: 15vw;
+}
+
+input {
+  border-radius: 15px;
+  height: 20px;
+  text-align: center;
+  width: 30vw;
+}
+
