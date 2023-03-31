@@ -18,8 +18,8 @@ export default function Register() {
 
   useEffect(() => {
     setErr(false);
-    setUsername('');
-    setPassword('');
+    // setUsername('');
+    // setPassword('');
   }, []);
 
   const handleSubmit = async (e) => {

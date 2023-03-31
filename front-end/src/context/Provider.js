@@ -4,11 +4,15 @@ import api from '../utils/fetch';
 import MyContext from './Context';
 
 function MeuProvider({ children }) {
+  const [username, setUsername] = useState('');
+  const [email, setemail] = useState('');
+  const [password, setPassword] = useState('');
+  const [register, setregister] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [Err, setErr] = useState('');
   const [disable, setDisable] = useState(true);
 
-  const postLogin = async (email, password) => api('POST', 'login', { email, password })
+  const postLogin = async () => api('POST', 'login', { email, password })
     .then((info) => {
       localStorage.setItem('user', JSON.stringify(info.data));
       setIsLoggedIn(true);
@@ -29,7 +33,15 @@ function MeuProvider({ children }) {
     postLogin,
     disable,
     setDisable,
-  }), [isLoggedIn, Err, disable]);
+    register,
+    setregister,
+    email,
+    setemail,
+    setPassword,
+    password,
+    username,
+    setUsername,
+  }), [isLoggedIn, Err, disable, register, email, password, username]);
 
   return (
     <MyContext.Provider value={ contextValue }>

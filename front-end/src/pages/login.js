@@ -1,14 +1,18 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import '../App.css';
 import { Redirect } from 'react-router-dom';
 import MyContext from '../context/Context';
 
 export default function Login() {
-  const [email, setemail] = useState('');
-  const [password, setPassword] = useState('');
-  const [register, setregister] = useState(false);
-  const [disable, setDisable] = useState(true);
   const {
+    email,
+    setemail,
+    setPassword,
+    password,
+    setregister,
+    register,
+    disable,
+    setDisable,
     postLogin,
     isLoggedIn,
     Err,
@@ -16,13 +20,12 @@ export default function Login() {
 
   const Red = async (e) => {
     e.preventDefault();
-    console.log('register');
     setregister(true);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    postLogin(email, password);
+    postLogin();
   };
 
   useEffect(() => {
