@@ -19,6 +19,7 @@ function MeuProvider({ children }) {
     })
     .catch(() => {
       setIsLoggedIn(false);
+      console.log('entrei');
       setErr(true);
     });
 
@@ -51,7 +52,7 @@ function MeuProvider({ children }) {
 }
 
 MeuProvider.propTypes = {
-  children: PropTypes.arrayOf().isRequired,
+  children: PropTypes.arrayOf(),
 
-};
+}.isRequired;
 export default MeuProvider;
