@@ -1,6 +1,5 @@
 import React, { useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
-// import api from '../utils/fetch';
 import MyContext from './Context';
 
 function MeuProvider({ children }) {
@@ -9,26 +8,15 @@ function MeuProvider({ children }) {
   const [password, setPassword] = useState('');
   const [register, setregister] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [loggin, setloggin] = useState(false);
   const [Err, setErr] = useState('');
   const [disable, setDisable] = useState(true);
-
-  // const postLogin = async () => api('POST', 'login', { email, password })
-  //   .then((info) => {
-  //     localStorage.setItem('user', JSON.stringify(info.data));
-  //     setIsLoggedIn(true);
-  //   })
-  //   .catch(() => {
-  //     setIsLoggedIn(false);
-  //     console.log('entrei');
-  //     setErr(true);
-  //   });
-
-  // const postRegister = async (newUser) => api('POST', 'register', newUser)
-  //   .then((info) => );
 
   const contextValue = useMemo(() => ({
     isLoggedIn,
     setIsLoggedIn,
+    loggin,
+    setloggin,
     Err,
     setErr,
     disable,
@@ -41,7 +29,7 @@ function MeuProvider({ children }) {
     password,
     username,
     setUsername,
-  }), [isLoggedIn, Err, disable, register, email, password, username]);
+  }), [isLoggedIn, loggin, Err, disable, register, email, password, username]);
 
   return (
     <MyContext.Provider value={ contextValue }>
