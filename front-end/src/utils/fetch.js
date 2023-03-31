@@ -1,9 +1,7 @@
 import axios from 'axios';
 
-const PORT = process.env.REACT_APP_API_PORT;
-
 const fetch = axios.create({
-  baseURL: `http://localhost:${PORT}`,
+  baseURL: 'http://localhost:3001',
   timeout: 10000,
   headers: {
     Accept: 'application/json',
