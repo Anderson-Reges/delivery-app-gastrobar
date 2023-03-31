@@ -45,7 +45,7 @@ export default function Login() {
   if (isLoggedIn) return <Redirect to="/customer/products" />;
 
   return (
-    <form>
+    <form action="post" onSubmit={ postLogin }>
 
       <label
         htmlFor="email"
@@ -83,7 +83,6 @@ export default function Login() {
         data-testid="common_login__button-login"
         type="submit"
         disabled={ disable }
-        onClick={ postLogin }
       >
         Login
 
@@ -94,7 +93,6 @@ export default function Login() {
         onClick={ Red }
       >
         Register
-
       </button>
       {Err
         ? <h1 data-testid="common_login__element-invalid-email">   Erro  </h1>
