@@ -2,30 +2,34 @@ import React, { useContext, useEffect } from 'react';
 import '../App.css';
 import { Redirect } from 'react-router-dom';
 import MyContext from '../context/Context';
+import api from '../utils/fetch';
 
 export default function Login() {
   const {
-    email,
-    setemail,
-    setPassword,
-    password,
-    setregister,
-    register,
-    disable,
-    setDisable,
-    postLogin,
-    isLoggedIn,
-    Err,
+    email, setemail,
+    setPassword, password,
+    setregister, register,
+    disable, setDisable,
+    isLoggedIn, setIsLoggedIn,
+    Err, setErr,
   } = useContext(MyContext);
 
-  const Red = async (e) => {
-    e.preventDefault();
+  const Red = async (event) => {
+    event.preventDefault();
     setregister(true);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    postLogin();
+  const postLogin = async (event) => {
+    event.preventDefault();
+    await api('POST', 'login', { email, password })
+      .then((info) => {
+        localStorage.setItem('user', JSON.stringify(info.data));
+        setIsLoggedIn(true);
+      })
+      .catch(() => {
+        setIsLoggedIn(false);
+        setErr(true);
+      });
   };
 
   useEffect(() => {
@@ -44,17 +48,18 @@ export default function Login() {
     <form>
 
       <label
-        htmlFor="username"
+        htmlFor="email"
       >
-        Nome de usuário:
+        Email:
         {' '}
 
       </label>
       <input
         data-testid="common_login__input-email"
-        type="text"
+        type="email"
+        id="email"
         value={ email }
-        placeholder="insira um nome de usuário"
+        placeholder="insira um Email"
         onChange={ ({ target }) => setemail(target.value) }
       />
 
@@ -68,6 +73,7 @@ export default function Login() {
       <input
         data-testid="common_login__input-password"
         type="password"
+        id="password"
         value={ password }
         placeholder="insira uma senha"
         onChange={ ({ target }) => setPassword(target.value) }
@@ -77,7 +83,7 @@ export default function Login() {
         data-testid="common_login__button-login"
         type="submit"
         disabled={ disable }
-        onClick={ handleSubmit }
+        onClick={ postLogin }
       >
         Login
 
