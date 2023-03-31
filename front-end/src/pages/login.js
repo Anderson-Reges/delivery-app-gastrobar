@@ -1,27 +1,18 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import '../App.css';
 import { Redirect } from 'react-router-dom';
 import MyContext from '../context/Context';
 
 export default function Login() {
+  const [email, setemail] = useState('');
+  const [password, setPassword] = useState('');
+  const [register, setregister] = useState(false);
+  const [disable, setDisable] = useState(true);
   const {
-    password,
-    setPassword,
+    postLogin,
     isLoggedIn,
     Err,
-    register,
-    setregister,
-    postLogin,
-    email,
-    setemail,
-    disable,
-    setDisable,
   } = useContext(MyContext);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    await postLogin();
-  };
 
   const Red = async (e) => {
     e.preventDefault();
@@ -29,30 +20,25 @@ export default function Login() {
     setregister(true);
   };
 
-  const validateLogin = (Email, Password) => {
-    const minSizePass = 5;
-    const emailVerify = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(Email);
-    if (Email === '' || Password === '') {
-      return setDisable(true);
-    }
-    if (Password.length < minSizePass) {
-      return setDisable(true);
-    }
-    if (!emailVerify) {
-      return setDisable(true);
-    }
-    setDisable(false);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    postLogin(email, password);
   };
 
   useEffect(() => {
-    validateLogin(email, password);
-  }, [email, password, setDisable, validateLogin]);
+    const minSizePass = 6;
+    const emailVerify = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+    if (emailVerify.test(email) && password.length >= minSizePass) {
+      return setDisable(false);
+    }
+    return setDisable(true);
+  }, [email, password, setDisable]);
 
   if (register) return <Redirect to="/register" />;
-  if (isLoggedIn) return <Redirect to="/home" />;
+  if (isLoggedIn) return <Redirect to="/customer/products" />;
 
   return (
-    <form onSubmit={ handleSubmit }>
+    <form>
 
       <label
         htmlFor="username"
@@ -88,6 +74,7 @@ export default function Login() {
         data-testid="common_login__button-login"
         type="submit"
         disabled={ disable }
+        onClick={ handleSubmit }
       >
         Login
 
