@@ -1,8 +1,12 @@
 const jwt = require('jsonwebtoken');
 const md5 = require('md5');
+const dotenv = require('dotenv');
 const { User } = require('../../database/models');
 
-const secret = process.env.JWT_SECRET;
+dotenv.config(); // importa variavel de ambiente do .ENV
+
+const secret = process.env.JWT_SECRET || 'secret'; 
+// || 'secret'; é para caso não tenha sido definido a variavel ambiente
 const jwtConfig = { expiresIn: '1d', algorithm: 'HS256' };
 
 const Login = async (email, _password) => {
