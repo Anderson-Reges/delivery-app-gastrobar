@@ -5,8 +5,10 @@ import MyContext from '../context/Context';
 export default function Navbar() {
   const { loggedUser, setLoggedUser } = useContext(MyContext);
 
-  const removeLoggedUser = () => {
+  const removeLoggedUser = (e) => {
+    e.preventDefault();
     localStorage.removeItem('user');
+    window.location.href = '/';
   };
 
   useEffect(() => setLoggedUser(JSON.parse(localStorage.getItem('user'))), []);
@@ -33,13 +35,13 @@ export default function Navbar() {
         >
           {loggedUser && loggedUser.name}
         </span>
-        <Link
-          to="/"
+        <a
+          href="/"
           data-testid="customer_products__element-navbar-link-logout"
           onClick={ removeLoggedUser }
         >
           Sair
-        </Link>
+        </a>
       </div>
     </header>
   );

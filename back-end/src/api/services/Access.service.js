@@ -5,7 +5,7 @@ const { User } = require('../../database/models');
 
 dotenv.config(); // importa variavel de ambiente do .ENV
 
-const secret = process.env.JWT_SECRET || 'secret'; 
+const secret = process.env.JWT_SECRET || 'secret_key'; 
 // || 'secret'; é para caso não tenha sido definido a variavel ambiente
 const jwtConfig = { expiresIn: '1d', algorithm: 'HS256' };
 
