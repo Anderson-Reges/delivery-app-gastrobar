@@ -12,6 +12,8 @@ function MeuProvider({ children }) {
   const [Err, setErr] = useState('');
   const [disable, setDisable] = useState(true);
   const [loggedUser, setLoggedUser] = useState('');
+  const [products, setProducts] = useState([]);
+  const [cartItens, setCartItens] = useState([]);
 
   const contextValue = useMemo(() => ({
     isLoggedIn,
@@ -32,12 +34,18 @@ function MeuProvider({ children }) {
     setUsername,
     loggedUser,
     setLoggedUser,
+    products,
+    setProducts,
+    cartItens,
+    setCartItens,
   }), [
     isLoggedIn, loggin,
     Err, disable,
     register, email,
     password, username,
-    loggedUser]);
+    loggedUser, products,
+    cartItens,
+  ]);
 
   return (
     <MyContext.Provider value={ contextValue }>

@@ -3,13 +3,13 @@ import { Link } from 'react-router-dom';
 import MyContext from '../context/Context';
 
 export default function Navbar() {
-  const { loggerUser, setLoggedUser } = useContext(MyContext);
+  const { loggedUser, setLoggedUser } = useContext(MyContext);
 
   const removeLoggedUser = () => {
     localStorage.removeItem('user');
   };
 
-  useEffect(() => setLoggedUser(JSON.parse(localStorage.getItem('user'))));
+  useEffect(() => setLoggedUser(JSON.parse(localStorage.getItem('user'))), []);
 
   return (
     <header>
@@ -31,7 +31,7 @@ export default function Navbar() {
         <span
           data-testid="customer_products__element-navbar-user-full-name"
         >
-          {loggerUser.name}
+          {loggedUser && loggedUser.name}
         </span>
         <Link
           to="/"
