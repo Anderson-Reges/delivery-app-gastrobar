@@ -61,27 +61,46 @@ export default function Products() {
       <Navbar />
       <div>
         {products && products.map((product) => (
-          <div key={ product.id }>
-            <img src={ product.urlImage } alt="" />
-            <h2>{product.name}</h2>
-            <h2>{product.price}</h2>
-            <input
-              type="button"
-              value="-"
-              onClick={ () => decreaseItem(product.id) }
+          <div
+            key={ product.id }
+          >
+            <img
+              data-testid={ `customer_products__img-card-bg-image-${product.id}` }
+              src={ product.urlImage }
+              alt=""
             />
-            <h2>
-              {
-                cartItens.find(({ id }) => id === product.id)
-                  ? cartItens.find(({ id }) => id === product.id).quantity
-                  : 0
-              }
+            <h2
+              data-testid={ `customer_products__element-card-title-${product.id}` }
+            >
+              {product.name}
+
             </h2>
-            <input
+            <h2
+              data-testid={ `customer_products__element-card-price-${product.id}` }
+            >
+              {product.price}
+
+            </h2>
+            <button
+              data-testid={ `customer_products__button-card-rm-item-${product.id}` }
+              onClick={ () => decreaseItem(product.id) }
               type="button"
-              value="+"
-              onClick={ () => addItem(product.id) }
+            >
+              -
+            </button>
+            <input
+              data-testid={ `customer_products__input-card-quantity-${product.id}` }
+              value={ cartItens.find(({ id }) => id === product.id)
+                ? cartItens.find(({ id }) => id === product.id).quantity
+                : 0 }
             />
+            <button
+              data-testid={ `customer_products__button-card-add-item-${product.id}` }
+              type="button"
+              onClick={ () => addItem(product.id) }
+            >
+              +
+            </button>
           </div>
         ))}
       </div>
