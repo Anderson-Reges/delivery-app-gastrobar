@@ -6,6 +6,7 @@ const app = express();
 app
   .use(cors())
   .use(express.json())
+  .use(express.static('public'))
   .use('/login', Login)
   .use('/register', Register)
   .use('/products', Products);

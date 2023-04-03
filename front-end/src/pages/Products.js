@@ -67,7 +67,9 @@ export default function Products() {
             <img
               data-testid={ `customer_products__img-card-bg-image-${product.id}` }
               src={ product.urlImage }
-              alt=""
+              alt={ product.name }
+              width="70px"
+              height="70px"
             />
             <h2
               data-testid={ `customer_products__element-card-title-${product.id}` }
@@ -78,7 +80,9 @@ export default function Products() {
             <h2
               data-testid={ `customer_products__element-card-price-${product.id}` }
             >
-              {product.price}
+              R$
+              {' '}
+              {product.price.toString().replace('.', ',')}
 
             </h2>
             <button
