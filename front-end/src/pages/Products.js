@@ -47,6 +47,11 @@ export default function Products() {
     cartProducts();
   };
 
+  const getRout = (e) => {
+    e.preventDefault();
+    window.location.href = '/customer/checkout';
+  };
+
   const getProducts = async () => {
     await api('GET', 'products')
       .then((info) => setProducts(info.data));
@@ -104,6 +109,16 @@ export default function Products() {
               onClick={ () => addItem(product.id) }
             >
               +
+            </button>
+            <button
+              data-testid="customer_products__button-cart"
+              type="button"
+              onClick={ (e) => getRout(e) }
+              value="customer_products__checkout-bottom-value"
+            >
+              Checkout
+              {' '}
+
             </button>
           </div>
         ))}
