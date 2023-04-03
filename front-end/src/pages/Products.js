@@ -110,18 +110,18 @@ export default function Products() {
             >
               +
             </button>
-            <button
-              data-testid="customer_products__button-cart"
-              type="button"
-              onClick={ (e) => getRout(e) }
-              value="customer_products__checkout-bottom-value"
-            >
-              Checkout
-              {' '}
-
-            </button>
           </div>
         ))}
+        <button
+          data-testid="customer_products__button-cart"
+          type="button"
+          onClick={ (e) => getRout(e) }
+          value="customer_products__checkout-bottom-value"
+        >
+          Checkout
+          {' '}
+
+        </button>
       </div>
     </main>
   );
