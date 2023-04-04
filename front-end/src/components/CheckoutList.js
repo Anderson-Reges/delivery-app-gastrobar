@@ -1,17 +1,9 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useContext } from 'react';
+import MyContext from '../context/Context';
 
 export default function CheckoutList({ cartItens, getProducts }) {
-  const totalPrice = () => {
-    let currentPrice = 0;
-    cartItens.forEach(({ quantity, price }) => { currentPrice += (quantity * price); });
-    return (
-      <h2>
-        Total: R$
-        {currentPrice.toFixed(2).toString().replace('.', ',')}
-      </h2>
-    );
-  };
+  const { totalPrice } = useContext(MyContext);
 
   const removeItemInCart = (id) => {
     cartItens.forEach((product, index) => {
@@ -92,7 +84,10 @@ export default function CheckoutList({ cartItens, getProducts }) {
           ))}
         </tbody>
       </table>
-      {totalPrice()}
+      <h2 data-testid="customer_checkout__element-order-total-price">
+        R$
+        {totalPrice}
+      </h2>
     </section>
   );
 }

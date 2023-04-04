@@ -40,11 +40,12 @@ export default function FinalizingCheckout({ sellers }) {
           />
         </label>
       </form>
-      <input
+      <button
         type="submit"
-        value="Finalizar Pedido"
         data-testid="customer_checkout__button-submit-order"
-      />
+      >
+        Finalizar Pedido
+      </button>
     </section>
   );
 }
