@@ -85,8 +85,7 @@ export default function CheckoutList({ cartItens, getProducts }) {
         </tbody>
       </table>
       <h2 data-testid="customer_checkout__element-order-total-price">
-        R$
-        {totalPrice}
+        {totalPrice.toFixed(2).toString().replace('.', ',')}
       </h2>
     </section>
   );
