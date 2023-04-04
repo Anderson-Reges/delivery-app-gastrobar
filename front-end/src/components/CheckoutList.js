@@ -1,20 +1,21 @@
 import PropTypes from 'prop-types';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import MyContext from '../context/Context';
 
 export default function CheckoutList({ cartItens, getProducts }) {
-  const { totalPrice } = useContext(MyContext);
+  const { totalPrice, setTotalPrice } = useContext(MyContext);
 
   const removeItemInCart = (id) => {
-    cartItens.forEach((product, index) => {
-      if (product.id === id) {
-        cartItens.splice(index, 1);
-        localStorage.setItem('products', JSON.stringify(cartItens));
-        totalPrice();
-        getProducts();
-      }
-    });
+    const remove = cartItens.filter((product) => product.id !== id);
+    localStorage.setItem('products', JSON.stringify(remove));
+    getProducts();
   };
+
+  useEffect(() => {
+    const total = cartItens
+      .reduce((acc, curr) => acc + (curr.quantity * curr.price), 0);
+    setTotalPrice(total);
+  }, [removeItemInCart]);
 
   return (
     <section>
