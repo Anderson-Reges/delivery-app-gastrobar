@@ -12,6 +12,7 @@ export default function Login() {
     disable, setDisable,
     isLoggedIn, setIsLoggedIn,
     Err, setErr,
+    isAdm,
   } = useContext(MyContext);
 
   const Red = async (event) => {
@@ -43,6 +44,7 @@ export default function Login() {
 
   if (register) return <Redirect to="/register" />;
   if (isLoggedIn) return <Redirect to="/customer/products" />;
+  if (isAdm) return <Redirect to="/admin/manage" />;
 
   return (
     <form action="post" onSubmit={ postLogin }>

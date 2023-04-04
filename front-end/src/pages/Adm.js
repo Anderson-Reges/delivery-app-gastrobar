@@ -1,33 +1,16 @@
 import React, { useContext } from 'react';
 import '../App.css';
-import { Redirect } from 'react-router-dom';
 import MyContext from '../context/Context';
-import api from '../utils/fetch';
 
 export default function Adm() {
   const {
     username, setUsername,
     password, setPassword,
-    loggin, setIsLoggedIn,
-    Err, setErr,
     email, setemail,
     disable,
+    Err, setRole,
   } = useContext(MyContext);
 
-  const postLogin = async (event) => {
-    event.preventDefault();
-    await api('POST', 'login', { email, password })
-      .then((info) => {
-        localStorage.setItem('user', JSON.stringify(info.data));
-        setIsLoggedIn(true);
-      })
-      .catch(() => {
-        setIsLoggedIn(false);
-        setErr(true);
-      });
-  };
-
-  if (loggin) return <Redirect to="/admin/manage" />;
   return (
     <form onSubmit={ postLogin }>
       <label
@@ -81,6 +64,7 @@ export default function Adm() {
       <select
         data-testid="admin_manage__select-role"
         id="tipo"
+        onChange={ ({ target }) => setRole(target.value) }
       >
         <option>Vendedor</option>
         <option>Cliente</option>
