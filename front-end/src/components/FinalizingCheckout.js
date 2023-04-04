@@ -16,7 +16,7 @@ export default function FinalizingCheckout({ sellers }) {
             {sellers && sellers.map(({ name, id }) => (
               <option
                 key={ id }
-                value={ name }
+                value={ id }
               >
                 {name}
               </option>
