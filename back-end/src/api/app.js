@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const { Login, Register, Products } = require('./routes');
+const { Login, Register, Products, User } = require('./routes');
 
 const app = express();
 app
@@ -9,7 +9,8 @@ app
   .use(express.static('public'))
   .use('/login', Login)
   .use('/register', Register)
-  .use('/products', Products);
+  .use('/products', Products)
+  .use('/user', User);
 
 app.get('/coffee', (_req, res) => res.status(418).end());
 

@@ -14,6 +14,8 @@ function MeuProvider({ children }) {
   const [loggedUser, setLoggedUser] = useState('');
   const [products, setProducts] = useState([]);
   const [cartItens, setCartItens] = useState([]);
+  const [sellers, setSellers] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(0);
 
   const contextValue = useMemo(() => ({
     isLoggedIn,
@@ -38,13 +40,18 @@ function MeuProvider({ children }) {
     setProducts,
     cartItens,
     setCartItens,
+    sellers,
+    setSellers,
+    totalPrice,
+    setTotalPrice,
   }), [
     isLoggedIn, loggin,
     Err, disable,
     register, email,
     password, username,
     loggedUser, products,
-    cartItens,
+    cartItens, sellers,
+    totalPrice,
   ]);
 
   return (
