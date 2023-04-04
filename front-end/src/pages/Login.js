@@ -17,7 +17,7 @@ export default function Login() {
     isLoggedIn, setIsLoggedIn,
     Err, setErr,
     user, setUser,
-    isAdm,
+    isAdm, setAdm,
   } = useContext(MyContext);
 
   const Red = async (event) => {
@@ -41,6 +41,14 @@ export default function Login() {
       });
   };
 
+  const isAdmin = () => {
+    const data = localStorage.getItem('users');
+    const userAdmin = JSON.parse(data);
+    const trueAdm = userAdmin.role === 'Administrador';
+    if (trueAdm) return setAdm(true);
+    return isAdm();
+  };
+
   useEffect(() => {
     if (localStorage.getItem('user')) history.push('/customer/products');
     const minSizePass = 6;
@@ -53,7 +61,7 @@ export default function Login() {
 
   if (register) return <Redirect to="/register" />;
 
-  if (isAdm) return <Redirect to="/admin/manage" />;
+  if (isAdmin) return <Redirect to="/admin/manage" />;
 
   if (isLoggedIn && user.role === 'customer') {
     return <Redirect to="/customer/products" />;
