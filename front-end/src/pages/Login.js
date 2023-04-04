@@ -12,7 +12,7 @@ export default function Login() {
     disable, setDisable,
     isLoggedIn, setIsLoggedIn,
     Err, setErr,
-    isAdm,
+    isAdm, setAdm,
   } = useContext(MyContext);
 
   const Red = async (event) => {
@@ -33,6 +33,14 @@ export default function Login() {
       });
   };
 
+  const isAdmin = () => {
+    const data = localStorage.getItem('users');
+    const user = JSON.parse(data);
+    const trueAdm = user.role === 'Administrador';
+    if (trueAdm) return setAdm(true);
+    return isAdm();
+  };
+
   useEffect(() => {
     const minSizePass = 6;
     const emailVerify = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
@@ -44,7 +52,7 @@ export default function Login() {
 
   if (register) return <Redirect to="/register" />;
   if (isLoggedIn) return <Redirect to="/customer/products" />;
-  if (isAdm) return <Redirect to="/admin/manage" />;
+  if (isAdmin) return <Redirect to="/admin/manage" />;
 
   return (
     <form action="post" onSubmit={ postLogin }>
