@@ -17,6 +17,7 @@ export default function Login() {
     isLoggedIn, setIsLoggedIn,
     Err, setErr,
     user, setUser,
+    isAdm,
   } = useContext(MyContext);
 
   const Red = async (event) => {
@@ -51,6 +52,8 @@ export default function Login() {
   }, [email, password, setDisable]);
 
   if (register) return <Redirect to="/register" />;
+
+  if (isAdm) return <Redirect to="/admin/manage" />;
 
   if (isLoggedIn && user.role === 'customer') {
     return <Redirect to="/customer/products" />;
