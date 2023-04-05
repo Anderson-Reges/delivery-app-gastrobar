@@ -11,7 +11,7 @@ const jwtConfig = { expiresIn: '1d', algorithm: 'HS256' };
 
 const Login = async (email, _password) => {
   const user = await User.findOne({ where: { email }, raw: true });
-  const newUser = { name: user.name, email: user.email, role: user.role };
+  const newUser = { id: user.id, name: user.name, email: user.email, role: user.role };
   const token = jwt.sign(newUser, jwtKey, jwtConfig);
 
   return {
@@ -34,12 +34,9 @@ const Register = async (newAccount) => {
     password: pass,
     role: newAccount.role || 'customer', 
   };
-  await User.create(account);
+  const user = await User.create(account);
 
-  return {
-    ...newUser,
-    token,
-  };
+  return { id: user.id, ...newUser, token };
 };
 
 module.exports = {
