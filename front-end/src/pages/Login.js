@@ -1,8 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import '../App.css';
-import { Redirect,
-  useHistory,
-} from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import MyContext from '../context/Context';
 import api, { setToken } from '../utils/fetch';
 
@@ -14,7 +12,7 @@ export default function Login() {
     setPassword, password,
     setregister, register,
     disable, setDisable,
-    isLoggedIn, setIsLoggedIn,
+    setIsLoggedIn,
     Err, setErr,
     user, setUser,
     isAdm, setAdm,
@@ -34,6 +32,8 @@ export default function Login() {
         setUser(info.data);
         setToken(info.data.token);
         setIsLoggedIn(true);
+        if (info.data.role === 'customer') { return history.push('/customer/products'); }
+        if (info.data.role === 'administrator') { return history.push('/admin/manage'); }
       })
       .catch(() => {
         setIsLoggedIn(false);

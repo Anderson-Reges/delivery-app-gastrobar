@@ -8,7 +8,7 @@ export default function Adm() {
     password, setPassword,
     email, setemail,
     disable,
-    Err, setRole,
+    Err,
   } = useContext(MyContext);
 
   return (
@@ -64,10 +64,10 @@ export default function Adm() {
       <select
         data-testid="admin_manage__select-role"
         id="tipo"
-        onChange={ ({ target }) => setRole(target.value) }
       >
         <option>Vendedor</option>
         <option>Cliente</option>
+        <option>Administrador</option>
       </select>
       <button
         data-testid="admin_manage__button-register"
