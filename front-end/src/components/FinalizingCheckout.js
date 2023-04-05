@@ -1,12 +1,15 @@
 import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import api from '../utils/fetch';
+import MyContext from '../context/Context';
 
 export default function FinalizingCheckout({ sellers, cartItens }) {
-  const [address, setAddress] = useState('');
-  const [houseNumber, setHouseNumber] = useState('');
-  const [selectSeller, setSelectSeller] = useState(null);
+  const {
+    address, setAddress, houseNumber, setHouseNumber, selectSeller, setSelectSeller,
+    user, setUser,
+  } = useContext(MyContext);
+
   const history = useHistory();
   const total = cartItens
     .reduce((acc, curr) => acc + (curr.quantity * curr.price), 0);
@@ -14,7 +17,7 @@ export default function FinalizingCheckout({ sellers, cartItens }) {
   const onSubmit = async (event) => {
     event.preventDefault();
     const result = await api('POST', 'sales', {
-      userId: 3, // Quando corrigir a API, apagar essa linha, o userId não deveria ser passado aqui
+      userId: user.id, // Quando corrigir a API, apagar essa linha, o userId não deveria ser passado aqui
       deliveryAddress: address,
       deliveryNumber: houseNumber,
       sallerId: selectSeller,
@@ -27,6 +30,7 @@ export default function FinalizingCheckout({ sellers, cartItens }) {
     if (sellers.length > 0) {
       setSelectSeller(sellers[0].id);
     }
+    setUser(JSON.parse(localStorage.getItem('user')));
   }, [sellers]);
 
   return (

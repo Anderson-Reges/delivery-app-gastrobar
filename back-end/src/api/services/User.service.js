@@ -11,9 +11,9 @@ const findUserByRole = async (role) => {
   return users;
 };
 
-const findOne = async (email) => {
+const findOne = async (id) => {
   const user = await User.findOne({
-    where: { email },
+    where: { id },
   }, { raw: true });
 
   return user;

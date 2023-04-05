@@ -14,9 +14,8 @@ const ValidateToken = async (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, jwtKey);
-    console.log(decoded);
-    const user = await findOne(decoded.email);
-
+    const user = await findOne(decoded.id);
+    console.log(user);
     if (!user) {
       return res.status(401).json({ message: 'Token Invalido.' });
     }
