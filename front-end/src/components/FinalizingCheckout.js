@@ -17,11 +17,12 @@ export default function FinalizingCheckout({ sellers, cartItens }) {
   const onSubmit = async (event) => {
     event.preventDefault();
     const result = await api('POST', 'sales', {
-      userId: user.id, // Quando corrigir a API, apagar essa linha, o userId não deveria ser passado aqui
+      userId: user.id,
       deliveryAddress: address,
       deliveryNumber: houseNumber,
-      sallerId: selectSeller,
+      sellerId: selectSeller,
       totalPrice: total,
+      cartItens,
     });
     history.push(`/customer/orders/${result.data.id}`);
   };

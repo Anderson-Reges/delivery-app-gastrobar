@@ -5,26 +5,26 @@ module.exports = {
       saleId: {
         allowNull: false,
         primaryKey: true,
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
-        field: 'sale_id',
         type: Sequelize.INTEGER,
+        field: 'sale_id',
         references: {
           model: 'sales',
           key: 'id',
-        }
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
       },
       productId: {
         allowNull: false,
         primaryKey: true,
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
-        field: 'product_id',
         type: Sequelize.INTEGER,
+        field: 'product_id',
         references: {
           model: 'products',
           key: 'id',
-        }
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
       },
       quantity: {
         allowNull: false,

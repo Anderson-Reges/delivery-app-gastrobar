@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       id: { type: DataTypes.INTEGER, allowNull: false, autoIncrement: true, primaryKey: true },
       userId: { type: DataTypes.INTEGER, allowNull: false, foreignKey: true },
-      sallerId: { type: DataTypes.INTEGER, allowNull: false, foreignKey: true },
+      sellerId: { type: DataTypes.INTEGER, allowNull: false, foreignKey: true },
       totalPrice: { type: DataTypes.DECIMAL(9, 2), allowNull: false },
       deliveryAddress: { type: DataTypes.STRING, allowNull: false },
       deliveryNumber: { type: DataTypes.STRING, allowNull: false },
@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
 
   Sale.associate = (models) => {
     models.User.hasMany(Sale, { foreignKey: 'user_id', as: 'user' });
-    models.User.hasMany(Sale, { foreignKey: 'saller_id', as: 'saller' });
+    models.User.hasMany(Sale, { foreignKey: 'seller_id', as: 'saller' });
   };
 
   return Sale;
