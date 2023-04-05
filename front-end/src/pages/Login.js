@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import '../App.css';
 import { Redirect } from 'react-router-dom';
 import MyContext from '../context/Context';
-import api from '../utils/fetch';
+import api, { setToken } from '../utils/fetch';
 
 export default function Login() {
   const {
@@ -21,9 +21,11 @@ export default function Login() {
 
   const postLogin = async (event) => {
     event.preventDefault();
+
     await api('POST', 'login', { email, password })
       .then((info) => {
         localStorage.setItem('user', JSON.stringify(info.data));
+        setToken(info.data.token);
         setIsLoggedIn(true);
       })
       .catch(() => {

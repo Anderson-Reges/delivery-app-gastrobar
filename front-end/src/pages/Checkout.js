@@ -33,6 +33,7 @@ export default function Checkout() {
       />
       <FinalizingCheckout
         sellers={ sellers }
+        cartItens={ cartItens }
       />
     </main>
   );
