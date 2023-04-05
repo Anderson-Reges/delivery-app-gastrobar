@@ -23,7 +23,7 @@ export default function FinalizingCheckout({ sellers, cartItens }) {
       sellerId: selectSeller,
       totalPrice: total,
       cartItens,
-    });
+    }, user.token);
     history.push(`/customer/orders/${result.data.id}`);
   };
 

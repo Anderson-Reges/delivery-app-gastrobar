@@ -1,10 +1,11 @@
 const Router = require('express');
-const { createControl } = require('../controllers/Sales.controller');
+const { createControl, getAllControl } = require('../controllers/Sales.controller');
 const ValidateToken = require('../middlewares/ValidateToken');
 
 const routes = Router();
 
 routes
+  .get('/', getAllControl)
   .post('/', ValidateToken, createControl);
 
 module.exports = routes;

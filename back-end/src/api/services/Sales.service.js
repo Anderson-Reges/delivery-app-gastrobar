@@ -15,6 +15,11 @@ const create = async (sale) => {
   return createdSale;
 };
 
+const getAll = async () => {
+  const sale = await Sale.findAll();
+  return sale;
+};
+
 const getById = async (id) => {
   const sale = await Sale.findOne({
     where: { id },
@@ -36,4 +41,5 @@ module.exports = {
   create,
   getById,
   update,
+  getAll,
 };

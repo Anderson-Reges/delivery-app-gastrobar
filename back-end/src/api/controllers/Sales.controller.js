@@ -1,5 +1,6 @@
 const {
   // getById,
+  getAll,
   create,
 } = require('../services/Sales.service');
 
@@ -10,10 +11,12 @@ const createControl = async (req, res) => {
   return res.status(201).json(result);
 };
 
-module.exports = {
-  createControl,
+const getAllControl = async (_req, res) => {
+  const sales = await getAll();
+  return res.status(200).json(sales);
 };
 
-// O avaliador verificará se ao final do checkout é disparado uma request POST com uma autorização (token) válida, que retorne status 201 - Created;
-// O avaliador verificará se após isso o endereço da url contém o id do pedido criado. Por exemplo, se o id gerado for 3, então: localhost:3000/customer/orders/3.
-// O avaliador selecionará a pessoa vendedora pelo id como informado no requisito 17
+module.exports = {
+  createControl,
+  getAllControl,
+};
