@@ -31,6 +31,7 @@ export default function Login() {
         setIsLoggedIn(true);
         if (info.data.role === 'customer') { return history.push('/customer/products'); }
         if (info.data.role === 'administrator') { return history.push('/admin/manage'); }
+        console.log(info.data.role);
       })
       .catch(() => {
         setIsLoggedIn(false);

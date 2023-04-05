@@ -7,9 +7,22 @@ export default function Adm() {
     username, setUsername,
     password, setPassword,
     email, setemail,
-    disable,
+    disable, setDisable,
     Err,
   } = useContext(MyContext);
+
+  useEffect(() => {
+    const minSizePass = 6;
+    const minSizeUser = 12;
+    const emailVerify = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+    if (
+      emailVerify.test(email)
+      && password.length >= minSizePass
+      && username.length >= minSizeUser) {
+      return setDisable(false);
+    }
+    return setDisable(true);
+  }, [email, password, setDisable, username]);
 
   return (
     <form onSubmit={ postLogin }>
@@ -72,6 +85,7 @@ export default function Adm() {
       <button
         data-testid="admin_manage__button-register"
         type="submit"
+        onClick={ () => postRegister }
         disabled={ disable }
       >
         Register
