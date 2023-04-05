@@ -14,6 +14,7 @@ export default function Login() {
     disable, setDisable,
     isLoggedIn, setIsLoggedIn,
     Err, setErr,
+    user, setUser,
   } = useContext(MyContext);
 
   const Red = async (event) => {
@@ -27,6 +28,7 @@ export default function Login() {
     await api('POST', 'login', { email, password })
       .then((info) => {
         localStorage.setItem('user', JSON.stringify(info.data));
+        setUser(info.data);
         setToken(info.data.token);
         setIsLoggedIn(true);
       })
@@ -46,7 +48,13 @@ export default function Login() {
   }, [email, password, setDisable]);
 
   if (register) return <Redirect to="/register" />;
-  if (isLoggedIn) return <Redirect to="/customer/products" />;
+  console.log(user);
+  if (isLoggedIn && user.role === 'customer') {
+    return <Redirect to="/customer/products" />;
+  }
+  if (isLoggedIn && user.role === 'seller') {
+    return <Redirect to="/seller/orders" />;
+  }
 
   return (
     <form action="post" onSubmit={ postLogin }>
