@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types';
 import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import api from '../utils/fetch';
+import api, { setToken } from '../utils/fetch';
 import MyContext from '../context/Context';
 
 export default function FinalizingCheckout({ sellers, cartItens }) {
   const {
     address, setAddress, houseNumber, setHouseNumber, selectSeller, setSelectSeller,
-    user, setUser,
+    user,
   } = useContext(MyContext);
 
   const history = useHistory();
@@ -16,6 +16,7 @@ export default function FinalizingCheckout({ sellers, cartItens }) {
 
   const onSubmit = async (event) => {
     event.preventDefault();
+    setToken(user.token);
     const result = await api('POST', 'sales', {
       userId: user.id,
       deliveryAddress: address,
@@ -23,7 +24,7 @@ export default function FinalizingCheckout({ sellers, cartItens }) {
       sellerId: selectSeller,
       totalPrice: total,
       cartItens,
-    }, user.token);
+    });
     history.push(`/customer/orders/${result.data.id}`);
   };
 
@@ -31,8 +32,7 @@ export default function FinalizingCheckout({ sellers, cartItens }) {
     if (sellers.length > 0) {
       setSelectSeller(sellers[0].id);
     }
-    setUser(JSON.parse(localStorage.getItem('user')));
-  }, [sellers]);
+  }, [sellers, setSelectSeller]);
 
   return (
     <section>

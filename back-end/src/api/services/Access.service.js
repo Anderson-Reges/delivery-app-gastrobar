@@ -22,12 +22,6 @@ const Login = async (email, _password) => {
 
 const Register = async (newAccount) => {
   const pass = md5(newAccount.password);
-  const newUser = {
-    name: newAccount.name,
-    email: newAccount.email,
-    role: newAccount.role || 'customer',
-  };
-  const token = jwt.sign(newUser, jwtKey, jwtConfig);
   const account = {
     name: newAccount.name,
     email: newAccount.email,
@@ -35,6 +29,13 @@ const Register = async (newAccount) => {
     role: newAccount.role || 'customer', 
   };
   const user = await User.create(account);
+  const newUser = {
+    id: user.id,
+    name: newAccount.name,
+    email: newAccount.email,
+    role: newAccount.role || 'customer',
+  };
+  const token = jwt.sign(newUser, jwtKey, jwtConfig);
 
   return { id: user.id, ...newUser, token };
 };

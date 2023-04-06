@@ -1,10 +1,12 @@
 import React, { useContext, useEffect } from 'react';
 import '../App.css';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import MyContext from '../context/Context';
 import api, { setToken } from '../utils/fetch';
 
 export default function Login() {
+  const history = useHistory();
+  console.log(history);
   const {
     email, setemail,
     setPassword, password,
