@@ -1,12 +1,14 @@
 import React, { useContext, useEffect } from 'react';
 import '../App.css';
-import { Redirect, useHistory } from 'react-router-dom';
+import { Redirect,
+  // useHistory
+} from 'react-router-dom';
 import MyContext from '../context/Context';
 import api, { setToken } from '../utils/fetch';
 
 export default function Login() {
-  const history = useHistory();
-  console.log(history);
+  // const history = useHistory();
+
   const {
     email, setemail,
     setPassword, password,
@@ -48,7 +50,7 @@ export default function Login() {
   }, [email, password, setDisable]);
 
   if (register) return <Redirect to="/register" />;
-  console.log(user);
+
   if (isLoggedIn && user.role === 'customer') {
     return <Redirect to="/customer/products" />;
   }
