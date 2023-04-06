@@ -1,8 +1,8 @@
 import React, { useContext, useEffect } from 'react';
 import '../App.css';
-import { Redirect, useHistory } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import MyContext from '../context/Context';
-import api from '../utils/fetch';
+import api, { setToken } from '../utils/fetch';
 
 export default function Login() {
   const {
@@ -10,11 +10,10 @@ export default function Login() {
     setPassword, password,
     setregister, register,
     disable, setDisable,
-    setIsLoggedIn,
+    isLoggedIn, setIsLoggedIn,
     Err, setErr,
+    user, setUser,
   } = useContext(MyContext);
-
-  const history = useHistory();
 
   const Red = async (event) => {
     event.preventDefault();
@@ -27,11 +26,9 @@ export default function Login() {
     await api('POST', 'login', { email, password })
       .then((info) => {
         localStorage.setItem('user', JSON.stringify(info.data));
+        setUser(info.data);
         setToken(info.data.token);
         setIsLoggedIn(true);
-        if (info.data.role === 'customer') { return history.push('/customer/products'); }
-        if (info.data.role === 'administrator') { return history.push('/admin/manage'); }
-        console.log(info.data.role);
       })
       .catch(() => {
         setIsLoggedIn(false);
@@ -49,6 +46,15 @@ export default function Login() {
   }, [email, password, setDisable]);
 
   if (register) return <Redirect to="/register" />;
+  if (isLoggedIn && user.role === 'customer') {
+    return <Redirect to="/customer/products" />;
+  }
+  if (isLoggedIn && user.role === 'seller') {
+    return <Redirect to="/seller/orders" />;
+  }
+  if (isLoggedIn && user.role === 'administrator') {
+    return <Redirect to="/admin/manage" />;
+  }
 
   return (
     <form action="post" onSubmit={ postLogin }>
