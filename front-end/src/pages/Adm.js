@@ -46,7 +46,7 @@ export default function Adm() {
         {' '}
       </label>
       <input
-        data-testid="admin_mange__input-name"
+        data-testid="admin_manage__input-name"
         type="text"
         id="name"
         value={ username }
