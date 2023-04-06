@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import '../App.css';
 import MyContext from '../context/Context';
 
@@ -24,8 +24,21 @@ export default function Adm() {
     return setDisable(true);
   }, [email, password, setDisable, username]);
 
+  const postAdm = async (event) => {
+    event.preventDefault();
+    await api('POST', 'admin/manage', { name: username, email, password })
+      .then((info) => {
+        localStorage.setItem('user', JSON.stringify(info.data));
+        setloggin(true);
+      })
+      .catch(() => {
+        setloggin(false);
+        setErr(true);
+      });
+  };
+
   return (
-    <form onSubmit={ postLogin }>
+    <form onSubmit={ postAdm }>
       <label
         htmlFor="username"
       >
