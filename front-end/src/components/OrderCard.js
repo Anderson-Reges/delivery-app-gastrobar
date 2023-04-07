@@ -1,29 +1,34 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import MyContext from '../context/Context';
 
 export default function OrderCard({ id, status, saleDate, totalPrice }) {
+  const { setOrderId } = useContext(MyContext);
   const NEGATIVE_FOUR = -4;
-  const data = new Date(Date.parse(saleDate));
-  const day = data.getDate().toString().padStart(2, '0');
-  const month = (data.getMonth() + 1).toString().padStart(2, '0');
-  const year = data.getFullYear();
+  const CUT_LIMIT = 10;
+
+  useEffect(() => setOrderId(id));
 
   return (
-    <section>
+    <Link
+      to={ `/customer/orders/${id}` }
+      state={ { id } }
+    >
       <h4 data-testid={ `customer_orders__element-order-id-${id}` }>
         <p>Pedido</p>
         {(`0000${id}`).slice(NEGATIVE_FOUR)}
       </h4>
-      <h2 data-testis={ `customer_orders__element-delivery-status-${id}` }>
+      <h2 data-testid={ `customer_orders__element-delivery-status-${id}` }>
         { status }
       </h2>
       <h3 data-testid={ `customer_orders__element-order-date-${id}` }>
-        {`${day}/${month}/${year}`}
+        {saleDate.slice(0, CUT_LIMIT).split('-').reverse().join('/')}
       </h3>
       <h3 data-testid={ `customer_orders__element-card-price-${id}` }>
         { totalPrice.toString().replace('.', ',') }
       </h3>
-    </section>
+    </Link>
   );
 }
 

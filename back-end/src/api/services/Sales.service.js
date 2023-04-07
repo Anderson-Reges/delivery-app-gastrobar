@@ -1,4 +1,4 @@
-const { Sale, SaleProduct } = require('../../database/models');
+const { Sale, SaleProduct, Product, User } = require('../../database/models');
 
 const create = async (sale) => {
   const newSale = {
@@ -12,7 +12,10 @@ const create = async (sale) => {
       await SaleProduct.create({ saleId: createdSale.id, productId: id, quantity });
     }),
   );
-  return createdSale;
+  return {
+    ...createdSale.dataValues,
+    products: sale.cartItens,
+  };
 };
 
 const getAll = async () => {
@@ -23,9 +26,21 @@ const getAll = async () => {
 const getById = async (id) => {
   const sale = await Sale.findOne({
     where: { id },
+    include: { model: Product, as: 'products' },
   });
 
-  return sale;
+  const seller = await User.findOne({
+    where: { id: sale.sellerId },
+    attributes: {
+      exclude: ['password'],
+    },
+  });
+  const newsale = {
+    sale,
+    seller,
+  };
+
+  return newsale;
 };
 
 const update = async (sale) => {

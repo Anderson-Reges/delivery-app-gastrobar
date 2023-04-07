@@ -1,13 +1,13 @@
 import React, { useContext, useEffect } from 'react';
 import '../App.css';
 import { Redirect,
-  // useHistory
+  useHistory,
 } from 'react-router-dom';
 import MyContext from '../context/Context';
 import api, { setToken } from '../utils/fetch';
 
 export default function Login() {
-  // const history = useHistory();
+  const history = useHistory();
 
   const {
     email, setemail,
@@ -41,6 +41,7 @@ export default function Login() {
   };
 
   useEffect(() => {
+    if (localStorage.getItem('user')) history.push('/customer/products');
     const minSizePass = 6;
     const emailVerify = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
     if (emailVerify.test(email) && password.length >= minSizePass) {

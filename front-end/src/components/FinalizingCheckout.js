@@ -7,7 +7,7 @@ import MyContext from '../context/Context';
 export default function FinalizingCheckout({ sellers, cartItens }) {
   const {
     address, setAddress, houseNumber, setHouseNumber, selectSeller, setSelectSeller,
-    user,
+    user, setOrderId,
   } = useContext(MyContext);
 
   const history = useHistory();
@@ -25,6 +25,7 @@ export default function FinalizingCheckout({ sellers, cartItens }) {
       totalPrice: total,
       cartItens,
     });
+    setOrderId(result.data.id);
     history.push(`/customer/orders/${result.data.id}`);
   };
 
