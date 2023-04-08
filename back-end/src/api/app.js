@@ -9,6 +9,7 @@ app
   .use(express.static('public'))
   .use('/login', Login)
   .use('/register', Register)
+  .use('/admin/manage', Register)
   .use('/products', Products)
   .use('/user', User);
 
