@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import '../App.css';
 import MyContext from '../context/Context';
+import api from '../utils/fetch';
 
 export default function Adm() {
   const {
@@ -13,28 +14,21 @@ export default function Adm() {
   } = useContext(MyContext);
 
   useEffect(() => {
-    const doze = 12;
-    const nomeOk = username.length >= doze;
-    const regex = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+\.([a-z]+)?$/i;
-    const emailOk = regex.test(email);
-    const seis = 6;
-    const passwordOk = password.length > seis;
-    const tudoOk = nomeOk && passwordOk && emailOk;
-    if (tudoOk) return setDisable(false);
+    const minSizePass = 6;
+    const minSizeUser = 12;
+    const emailVerify = /^\S+@\S+\.\S+$/;
+    if (
+      emailVerify.test(email)
+      && password.length >= minSizePass
+      && username.length >= minSizeUser) {
+      return setDisable(false);
+    }
     return setDisable(true);
   }, [email, password, setDisable, username]);
 
   const postAdm = async (event) => {
     event.preventDefault();
-    await api('POST', 'admin/manage', { name: username, email, password, role })
-      .then((info) => {
-        localStorage.setItem('user', JSON.stringify(info.data));
-        setloggin(true);
-      })
-      .catch(() => {
-        setloggin(false);
-        setErr(true);
-      });
+    await api('POST', 'admin/manage', { name: username, email, password, role });
   };
 
   return (
@@ -51,7 +45,6 @@ export default function Adm() {
           data-testid="admin_manage__input-name"
           type="text"
           id="name"
-          value={ username }
           placeholder="Nome e sobrenome"
           onChange={ ({ target }) => setUsername(target.value) }
         />
@@ -65,7 +58,6 @@ export default function Adm() {
           data-testid="admin_manage__input-email"
           type="email"
           id="email"
-          value={ email }
           placeholder="insira um email"
           onChange={ ({ target }) => setemail(target.value) }
         />
@@ -79,7 +71,6 @@ export default function Adm() {
           data-testid="admin_manage__input-password"
           type="password"
           id="password"
-          value={ password }
           placeholder="insira uma senha"
           onChange={ ({ target }) => setPassword(target.value) }
         />
