@@ -1,8 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import '../App.css';
-import { Redirect,
-  useHistory,
-} from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import MyContext from '../context/Context';
 import api, { setToken } from '../utils/fetch';
 
@@ -51,6 +49,10 @@ export default function Login() {
   }, [email, password, setDisable]);
 
   if (register) return <Redirect to="/register" />;
+
+  if (isLoggedIn && user.role === 'administrator') {
+    return <Redirect to="/admin/manage" />;
+  }
 
   if (isLoggedIn && user.role === 'customer') {
     return <Redirect to="/customer/products" />;
