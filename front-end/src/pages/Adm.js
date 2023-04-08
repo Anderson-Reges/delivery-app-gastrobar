@@ -1,17 +1,18 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import '../App.css';
 import MyContext from '../context/Context';
 import api from '../utils/fetch';
 
 export default function Adm() {
   const {
-    username, setUsername,
-    password, setPassword,
-    email, setemail,
     disable, setDisable,
     Err,
     role, setRole,
   } = useContext(MyContext);
+
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [email, setemail] = useState('');
 
   useEffect(() => {
     const minSizePass = 6;

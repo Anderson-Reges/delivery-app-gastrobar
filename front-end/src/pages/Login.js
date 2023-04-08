@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import '../App.css';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import MyContext from '../context/Context';
 import api, { setToken } from '../utils/fetch';
 
@@ -15,7 +15,6 @@ export default function Login() {
     isLoggedIn, setIsLoggedIn,
     Err, setErr,
     user, setUser,
-    isAdm, setAdm,
   } = useContext(MyContext);
 
   const Red = async (event) => {
@@ -39,14 +38,6 @@ export default function Login() {
       });
   };
 
-  const isAdmin = () => {
-    const data = localStorage.getItem('users');
-    const userAdmin = JSON.parse(data);
-    const trueAdm = userAdmin.role === 'Administrador';
-    if (trueAdm) return setAdm(true);
-    return isAdm();
-  };
-
   useEffect(() => {
     if (localStorage.getItem('user')) history.push('/customer/products');
     const minSizePass = 6;
@@ -58,17 +49,10 @@ export default function Login() {
   }, [email, password, setDisable]);
 
   if (register) return <Redirect to="/register" />;
-  if (isLoggedIn && user.role === 'customer') {
-    return <Redirect to="/customer/products" />;
-  }
-  if (isLoggedIn && user.role === 'seller') {
-    return <Redirect to="/seller/orders" />;
-  }
+
   if (isLoggedIn && user.role === 'administrator') {
     return <Redirect to="/admin/manage" />;
   }
-
-  if (isAdmin) return <Redirect to="/admin/manage" />;
 
   if (isLoggedIn && user.role === 'customer') {
     return <Redirect to="/customer/products" />;
