@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import '../App.css';
 import MyContext from '../context/Context';
 import api from '../utils/fetch';
+import Navbar from '../components/Navbar';
 
 export default function Adm() {
   const {
@@ -34,6 +35,7 @@ export default function Adm() {
 
   return (
     <div>
+      <Navbar />
       <h3>Cadastrar novo usuário</h3>
       <form>
         <label
