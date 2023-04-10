@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import MyContext from '../context/Context';
 
 export default function ProductCard({ id, name, price, urlImage }) {
-  const { setCartItens, cartItens } = useContext(MyContext);
+  const { setCartItens } = useContext(MyContext);
   const [quantity, setQuantity] = useState(0);
 
   const updateCart = () => {
@@ -13,12 +13,11 @@ export default function ProductCard({ id, name, price, urlImage }) {
       quantity,
       price: Number(price),
     };
-    const cart = JSON.parse(localStorage.getItem('products'));
-    setCartItens(cart);
-    const updatedList = cartItens.filter((product) => product.id !== id);
+    const cart = JSON.parse(localStorage.getItem('products')) || [];
+    const updatedList = cart.filter((product) => product.id !== id);
     updatedList.push(updatedProduct);
     localStorage.setItem('products', JSON.stringify(updatedList));
-    setCartItens(JSON.parse(localStorage.getItem('products')));
+    setCartItens(updatedList);
   };
 
   const setQuantitValue = ({ target }) => {
@@ -31,13 +30,21 @@ export default function ProductCard({ id, name, price, urlImage }) {
       setQuantity(quantity + 1);
       break;
     case '-':
-      if (quantity > 0) setQuantity(quantity - 1);
+      if (quantity > 0) {
+        setQuantity(quantity - 1);
+        const local = JSON.parse(localStorage.getItem('products'))
+          .filter((product) => product.id !== id);
+        localStorage.setItem('products', JSON.stringify(local));
+        setCartItens(local);
+      }
       break;
     default:
     }
   };
 
-  useEffect(() => updateCart(), [quantity]);
+  useEffect(() => {
+    if (quantity > 0) updateCart();
+  }, [quantity]);
 
   return (
     <div>

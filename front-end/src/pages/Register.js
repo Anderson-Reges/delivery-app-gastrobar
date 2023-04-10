@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import '../App.css';
 import { Redirect } from 'react-router-dom';
 import MyContext from '../context/Context';
-import api from '../utils/fetch';
+import api, { setToken } from '../utils/fetch';
 
 export default function Register() {
   const {
@@ -32,6 +32,7 @@ export default function Register() {
     await api('POST', 'register', { name: username, email, password })
       .then((info) => {
         localStorage.setItem('user', JSON.stringify(info.data));
+        setToken(info.data.token);
         setloggin(true);
       })
       .catch(() => {

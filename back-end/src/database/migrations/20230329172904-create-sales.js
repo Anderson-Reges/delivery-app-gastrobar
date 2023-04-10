@@ -5,8 +5,8 @@ module.exports = {
     await queryInterface.createTable('sales', {
       id: {
         type: Sequelize.INTEGER,
+        autoIncrement: true,
         allowNull: false,
-        autoIncremente: true,
         primaryKey: true,
       },
       userId: {
@@ -21,7 +21,7 @@ module.exports = {
         onUpdate: 'CASCADE',
         field: 'user_id',
       },
-      sallerId: {
+      sellerId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         primaryKey: true,
@@ -31,7 +31,7 @@ module.exports = {
         },
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE',
-        field: 'saller_id'
+        field: 'seller_id'
       },
       totalPrice: {
         type: Sequelize.DECIMAL(9,2),

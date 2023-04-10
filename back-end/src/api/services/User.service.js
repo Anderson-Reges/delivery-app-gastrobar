@@ -11,6 +11,15 @@ const findUserByRole = async (role) => {
   return users;
 };
 
+const findOne = async (id) => {
+  const user = await User.findOne({
+    where: { id },
+  }, { raw: true });
+
+  return user;
+};
+
 module.exports = {
   findUserByRole,
+  findOne,
 };

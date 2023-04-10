@@ -1,10 +1,12 @@
 import React, { useContext, useEffect } from 'react';
 import '../App.css';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import MyContext from '../context/Context';
 import api, { setToken } from '../utils/fetch';
 
 export default function Login() {
+  const history = useHistory();
+
   const {
     email, setemail,
     setPassword, password,
@@ -37,6 +39,7 @@ export default function Login() {
   };
 
   useEffect(() => {
+    if (localStorage.getItem('user')) history.push('/customer/products');
     const minSizePass = 6;
     const emailVerify = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
     if (emailVerify.test(email) && password.length >= minSizePass) {
@@ -46,14 +49,16 @@ export default function Login() {
   }, [email, password, setDisable]);
 
   if (register) return <Redirect to="/register" />;
+
+  if (isLoggedIn && user.role === 'administrator') {
+    return <Redirect to="/admin/manage" />;
+  }
+
   if (isLoggedIn && user.role === 'customer') {
     return <Redirect to="/customer/products" />;
   }
   if (isLoggedIn && user.role === 'seller') {
     return <Redirect to="/seller/orders" />;
-  }
-  if (isLoggedIn && user.role === 'administrator') {
-    return <Redirect to="/admin/manage" />;
   }
 
   return (

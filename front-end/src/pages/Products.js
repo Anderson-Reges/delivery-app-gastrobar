@@ -21,7 +21,7 @@ export default function Products() {
   useEffect(() => {
     getProducts();
     const total = cartItens
-      .reduce((acc, curr) => acc + curr.quantity * curr.price, 0);
+      .reduce((acc, curr) => acc + (curr.quantity * curr.price), 0);
     setTotalPrice(total);
 
     if (total > 0) setDisabled(false);

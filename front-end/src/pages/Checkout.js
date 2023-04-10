@@ -6,7 +6,8 @@ import api from '../utils/fetch';
 import MyContext from '../context/Context';
 
 export default function Checkout() {
-  const { cartItens, setCartItens, sellers, setSellers } = useContext(MyContext);
+  const {
+    cartItens, setCartItens, sellers, setSellers, setUser } = useContext(MyContext);
 
   const getProducts = () => {
     const getItens = localStorage.getItem('products');
@@ -22,6 +23,7 @@ export default function Checkout() {
   useEffect(() => {
     getProducts();
     getSellerUsers();
+    setUser(JSON.parse(localStorage.getItem('user')));
   }, []);
 
   return (
@@ -33,6 +35,7 @@ export default function Checkout() {
       />
       <FinalizingCheckout
         sellers={ sellers }
+        cartItens={ cartItens }
       />
     </main>
   );

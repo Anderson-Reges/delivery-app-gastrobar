@@ -11,7 +11,7 @@ const jwtConfig = { expiresIn: '1d', algorithm: 'HS256' };
 
 const Login = async (email, _password) => {
   const user = await User.findOne({ where: { email }, raw: true });
-  const newUser = { name: user.name, email: user.email, role: user.role };
+  const newUser = { id: user.id, name: user.name, email: user.email, role: user.role };
   const token = jwt.sign(newUser, jwtKey, jwtConfig);
 
   return {
@@ -22,24 +22,22 @@ const Login = async (email, _password) => {
 
 const Register = async (newAccount) => {
   const pass = md5(newAccount.password);
-  const newUser = {
-    name: newAccount.name,
-    email: newAccount.email,
-    role: newAccount.role || 'customer',
-  };
-  const token = jwt.sign(newUser, jwtKey, jwtConfig);
   const account = {
     name: newAccount.name,
     email: newAccount.email,
     password: pass,
     role: newAccount.role || 'customer', 
   };
-  await User.create(account);
-
-  return {
-    ...newUser,
-    token,
+  const user = await User.create(account);
+  const newUser = {
+    id: user.id,
+    name: newAccount.name,
+    email: newAccount.email,
+    role: newAccount.role || 'customer',
   };
+  const token = jwt.sign(newUser, jwtKey, jwtConfig);
+
+  return { id: user.id, ...newUser, token };
 };
 
 module.exports = {
