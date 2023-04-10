@@ -26,7 +26,6 @@ function App() {
         <Route path="/customer/orders/:id" component={ OrderDetails } />
         <Route exact path="/seller/orders" component={ SellerOrders } />
         <Route path="/seller/orders/:id" component={ SellerOrderDetails } />
-        {/* <Route path="/customer/orders/:id" component={ Order } /> */}
         <Route path="/admin/manage" component={ Adm } />
       </Switch>
     </div>

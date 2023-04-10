@@ -23,7 +23,7 @@ export default function SellerOrderDetails() {
     };
     getOrder();
   }, []);
-
+  console.log(order);
   return (
     <section>
       <Navbar />
@@ -31,6 +31,7 @@ export default function SellerOrderDetails() {
       {loading ? (<h2>Carregando...</h2>) : (
         <main>
           <SellerDetailsOrder
+            id={ order.sale.id }
             name={ order.seller.name }
             status={ order.sale.status }
             totalPrice={ order.sale.totalPrice }

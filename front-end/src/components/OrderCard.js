@@ -13,7 +13,6 @@ export default function OrderCard({ id, status, saleDate, totalPrice }) {
   return (
     <Link
       to={ `/customer/orders/${id}` }
-      state={ { id } }
     >
       <h4 data-testid={ `customer_orders__element-order-id-${id}` }>
         <p>Pedido</p>
