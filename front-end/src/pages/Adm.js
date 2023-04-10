@@ -32,10 +32,11 @@ export default function Adm() {
     await api('POST', 'admin/manage', { name: username, email, password, role });
   };
 
+  console.log(role);
   return (
     <div>
       <h3>Cadastrar novo usuário</h3>
-      <form>
+      <form onSubmit={ postAdm }>
         <label
           htmlFor="username"
         >
@@ -86,13 +87,13 @@ export default function Adm() {
           id="tipo"
           onChange={ (r) => setRole(r.target.value) }
         >
-          <option value="seller" defaultValue>Vendedor</option>
+          <option defaultValue> </option>
+          <option value="seller">Vendedor</option>
           <option value="customer">Cliente</option>
         </select>
         <button
           data-testid="admin_manage__button-register"
           type="submit"
-          onClick={ () => postAdm() }
           disabled={ disable }
         >
           Cadastrar
