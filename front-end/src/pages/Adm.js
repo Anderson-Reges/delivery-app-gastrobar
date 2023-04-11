@@ -3,17 +3,17 @@ import '../App.css';
 import MyContext from '../context/Context';
 import api from '../utils/fetch';
 import Navbar from '../components/Navbar';
+import ListUsers from '../components/ListUsers';
 
 export default function Adm() {
   const {
     disable, setDisable,
     setErr, Err,
     role, setRole,
+    username, setUsername,
+    password, setPassword,
+    email, setemail,
   } = useContext(MyContext);
-
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [email, setemail] = useState('');
 
   useEffect(() => {
     const minSizePass = 6;
@@ -36,7 +36,6 @@ export default function Adm() {
       });
   };
 
-  console.log(role);
   return (
     <div>
       <Navbar />
@@ -109,6 +108,8 @@ export default function Adm() {
           ? <h1 data-testid="admin_manage__element-invalid-register">   Erro  </h1>
           : <div />}
       </form>
+      <h3>Lista de usuários</h3>
+      <ListUsers />
     </div>
   );
 }

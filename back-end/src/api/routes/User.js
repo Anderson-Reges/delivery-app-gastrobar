@@ -1,9 +1,13 @@
 const Router = require('express');
-const { findUserControl } = require('../controllers/User.controler');
+const {
+  findUserControl, findAllUserControl, deleteUserControl,
+} = require('../controllers/User.controler');
 
 const routes = Router();
 
 routes
-  .post('/', findUserControl);
+  .get('/', findAllUserControl)
+  .post('/', findUserControl)
+  .delete('/:id', deleteUserControl);
 
 module.exports = routes;

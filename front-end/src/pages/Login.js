@@ -36,6 +36,8 @@ export default function Login() {
         setIsLoggedIn(false);
         setErr(true);
       });
+    setPassword('');
+    setemail('');
   };
 
   useEffect(() => {

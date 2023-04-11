@@ -19,7 +19,29 @@ const findOne = async (id) => {
   return user;
 };
 
+const findAll = async () => {
+  const users = await User.findAll({
+    attributes: {
+      exclude: ['password'],
+    },
+  }, { raw: true });
+
+  return users;
+};
+
+const deleteUser = async (id) => {
+  const deleted = await User.destroy({
+    where: {
+      id,
+    },
+  });
+
+  return deleted;
+};
+
 module.exports = {
   findUserByRole,
   findOne,
+  findAll,
+  deleteUser,
 };
