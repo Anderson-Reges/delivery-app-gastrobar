@@ -5,6 +5,8 @@ import api from '../utils/fetch';
 
 export default function SellerOrders() {
   const [orderList, SetOrderList] = useState([]);
+  const DATE_CUT_LIMIT = 10;
+  const NEGATIVE_FOUR = -4;
 
   const getSellerOrders = async () => {
     await api('GET', 'sales/')
@@ -34,12 +36,15 @@ export default function SellerOrders() {
               className="card"
             >
 
-              <h1
+              <h4
                 data-testid={ `seller_orders__element-order-id-${id}` }
               >
-                {id}
+                <p>
+                  Pedido
+                </p>
+                {(`0000${id}`).slice(NEGATIVE_FOUR)}
 
-              </h1>
+              </h4>
               <p
                 data-testid={ `seller_orders__element-delivery-status-${id}` }
               >
@@ -49,7 +54,7 @@ export default function SellerOrders() {
               <p
                 data-testid={ `seller_orders__element-order-date-${id}` }
               >
-                {saleDate}
+                {saleDate.slice(0, DATE_CUT_LIMIT).split('-').reverse().join('/')}
 
               </p>
               <p

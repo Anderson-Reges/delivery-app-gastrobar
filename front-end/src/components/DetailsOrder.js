@@ -8,10 +8,7 @@ export default function DetailsOrder({
 }) {
   const { disableDelivered, setDisableDelivered } = useContext(MyContext);
   const NEGATIVE_FOUR = -4;
-  const data = new Date(Date.parse(requestData));
-  const day = data.getDate().toString().padStart(2, '0');
-  const month = (data.getMonth() + 1).toString().padStart(2, '0');
-  const year = data.getFullYear();
+  const DATE_CUT_LIMIT = 10;
 
   const putStatus = async (sta) => {
     await api('PUT', `/sales/${id}`, { status: sta })
@@ -57,7 +54,7 @@ export default function DetailsOrder({
         data-testid="customer_order_details__element-order-details-label-order-date"
       >
         {
-          `${day}/${month}/${year}`
+          requestData.slice(0, DATE_CUT_LIMIT).split('-').reverse().join('/')
         }
       </h4>
       <h4
