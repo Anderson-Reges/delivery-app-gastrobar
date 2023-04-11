@@ -2,6 +2,7 @@ const {
   getAll,
   create,
   getById,
+  update,
 } = require('../services/Sales.service');
 
 const createControl = async (req, res) => {
@@ -22,8 +23,15 @@ const getSaleControl = async (req, res) => {
   return res.status(200).json(sale);
 };
 
+const updateControl = async (req, res) => {
+  const { id } = req.params;
+  await update(req.body, id);
+  return res.status(201).json({ message: `pedido ${id} atualizada com sucesso` });
+};
+
 module.exports = {
   createControl,
   getAllControl,
   getSaleControl,
+  updateControl,
 };

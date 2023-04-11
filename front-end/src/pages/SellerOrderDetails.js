@@ -12,18 +12,19 @@ export default function SellerOrderDetails() {
   const { id } = useParams();
   const [loading, setLoading] = useState(true);
 
+  const getOrder = async () => {
+    await api('GET', `sales/${id}`)
+      .then((info) => {
+        setOrder(info.data);
+        setLoading(false);
+      })
+      .catch((err) => console.log(err));
+  };
+
   useEffect(() => {
-    const getOrder = async () => {
-      await api('GET', `sales/${id}`)
-        .then((info) => {
-          setOrder(info.data);
-          setLoading(false);
-        })
-        .catch((err) => console.log(err));
-    };
     getOrder();
   }, []);
-  console.log(order);
+
   return (
     <section>
       <Navbar />
@@ -36,6 +37,7 @@ export default function SellerOrderDetails() {
             status={ order.sale.status }
             totalPrice={ order.sale.totalPrice }
             requestData={ order.sale.saleDate }
+            getOrder={ getOrder }
           />
           <OrderTable
             order={ order.sale.products }

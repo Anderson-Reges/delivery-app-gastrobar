@@ -43,18 +43,18 @@ const getById = async (id) => {
   return newsale;
 };
 
-const update = async (sale) => {
+const update = async (sale, id) => {
   const updatedSale = await Sale.update(
     { ...sale },
-    { where: { id: sale.id } },
+    { where: { id } },
   );
 
   return updatedSale;
 };
 
 module.exports = {
-  create,
-  getById,
-  update,
   getAll,
+  getById,
+  create,
+  update,
 };

@@ -1,14 +1,42 @@
 import PropTypes from 'prop-types';
-import React from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { useContext, useEffect } from 'react';
+import MyContext from '../context/Context';
+import api from '../utils/fetch';
 
-export default function DetailsOrder({ name, status, totalPrice, requestData }) {
-  const { pathname } = useLocation();
+export default function DetailsOrder({
+  id, name, status, totalPrice, requestData, getOrder,
+}) {
+  const { disableDelivered, setDisableDelivered } = useContext(MyContext);
   const NEGATIVE_FOUR = -4;
   const data = new Date(Date.parse(requestData));
   const day = data.getDate().toString().padStart(2, '0');
   const month = (data.getMonth() + 1).toString().padStart(2, '0');
   const year = data.getFullYear();
+
+  const putStatus = async (sta) => {
+    await api('PUT', `/sales/${id}`, { status: sta })
+      .then((info) => console.log(info.data));
+  };
+
+  useEffect(() => {
+    switch (status) {
+    case 'Pendente':
+      setDisableDelivered(true);
+      break;
+    case 'Preparando':
+      setDisableDelivered(true);
+      break;
+    case 'Em Trânsito':
+      setDisableDelivered(false);
+      break;
+    case 'Entregue':
+      setDisableDelivered(true);
+      break;
+    default:
+      break;
+    }
+    getOrder();
+  }, [getOrder, setDisableDelivered, status]);
 
   return (
     <section>
@@ -18,7 +46,7 @@ export default function DetailsOrder({ name, status, totalPrice, requestData }) 
         <p>
           Pedido
         </p>
-        {(`0000${pathname.slice(pathname.length - 1)}`).slice(NEGATIVE_FOUR)}
+        {(`0000${id}`).slice(NEGATIVE_FOUR)}
       </h4>
       <h4
         data-testid="customer_order_details__element-order-details-label-seller-name"
@@ -28,7 +56,7 @@ export default function DetailsOrder({ name, status, totalPrice, requestData }) 
       <h4
         data-testid="customer_order_details__element-order-details-label-order-date"
       >
-        {/* {requestData.slice(0, CUT_LIMIT).split('-').reverse().join('/')} */
+        {
           `${day}/${month}/${year}`
         }
       </h4>
@@ -40,7 +68,8 @@ export default function DetailsOrder({ name, status, totalPrice, requestData }) 
       <button
         type="button"
         data-testid="customer_order_details__button-delivery-check"
-        disabled
+        onClick={ () => putStatus('Entregue') }
+        disabled={ disableDelivered }
       >
         Marcar como entregue
       </button>
