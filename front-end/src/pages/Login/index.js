@@ -1,8 +1,8 @@
 import React, { useContext, useEffect } from 'react';
-import '../App.css';
 import { Redirect, useHistory } from 'react-router-dom';
-import MyContext from '../context/Context';
-import api, { setToken } from '../utils/fetch';
+import MyContext from '../../context/Context';
+import api, { setToken } from '../../utils/fetch';
+import styles from './styles.module.scss';
 
 export default function Login() {
   const history = useHistory();
@@ -64,58 +64,54 @@ export default function Login() {
   }
 
   return (
-    <form action="post" onSubmit={ postLogin }>
-
-      <label
-        htmlFor="email"
-      >
-        Email:
-        {' '}
-
-      </label>
-      <input
-        data-testid="common_login__input-email"
-        type="email"
-        id="email"
-        value={ email }
-        placeholder="insira um Email"
-        onChange={ ({ target }) => setemail(target.value) }
-      />
-
-      <label
-        htmlFor="password"
-      >
-        Senha:
-        {' '}
-
-      </label>
-      <input
-        data-testid="common_login__input-password"
-        type="password"
-        id="password"
-        value={ password }
-        placeholder="insira uma senha"
-        onChange={ ({ target }) => setPassword(target.value) }
-      />
-
-      <button
-        data-testid="common_login__button-login"
-        type="submit"
-        disabled={ disable }
-      >
-        Login
-
-      </button>
-      <button
-        data-testid="common_login__button-register"
-        type="button"
-        onClick={ Red }
-      >
-        Register
-      </button>
-      {Err
-        ? <h1 data-testid="common_login__element-invalid-email">   Erro  </h1>
-        : <div />}
+    <form action="post" onSubmit={ postLogin } className={ styles.formContainer }>
+      <div className={ styles.loginBox }>
+        <span className={ styles.loginLogo }>
+          <ion-icon name="beer-outline" />
+          <h2>GastroBar</h2>
+        </span>
+        <span className={ styles.loginInputs }>
+          <label
+            htmlFor="email"
+          >
+            <ion-icon name="log-in-outline" />
+            <input
+              type="email"
+              id="email"
+              value={ email }
+              placeholder="Email"
+              onChange={ ({ target }) => setemail(target.value) }
+            />
+          </label>
+          <label
+            htmlFor="password"
+          >
+            <ion-icon name="key-outline" />
+            <input
+              type="password"
+              id="password"
+              value={ password }
+              placeholder="Senha"
+              onChange={ ({ target }) => setPassword(target.value) }
+            />
+          </label>
+          <button
+            type="submit"
+            disabled={ disable }
+          >
+            Login
+          </button>
+          <button
+            type="button"
+            onClick={ Red }
+          >
+            Register
+          </button>
+          {Err
+            ? <h1>   Erro  </h1>
+            : <div />}
+        </span>
+      </div>
     </form>
   );
 }

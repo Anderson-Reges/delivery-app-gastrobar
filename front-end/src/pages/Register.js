@@ -1,5 +1,4 @@
 import React, { useContext, useEffect } from 'react';
-import '../App.css';
 import { Redirect } from 'react-router-dom';
 import MyContext from '../context/Context';
 import api, { setToken } from '../utils/fetch';
