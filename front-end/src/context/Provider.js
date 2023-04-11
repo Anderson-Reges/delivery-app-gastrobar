@@ -24,7 +24,7 @@ function MeuProvider({ children }) {
   const [order, setOrder] = useState({});
   const [orderId, setOrderId] = useState(0);
   const [isAdm, setIsAdm] = useState(false);
-  const [role, setRole] = useState('');
+  const [role, setRole] = useState('seller');
   const [disablePreparing, setDisablePreparing] = useState(false);
   const [disableDelivery, setDisableDelivery] = useState(true);
   const [disableDelivered, setDisableDelivered] = useState(false);

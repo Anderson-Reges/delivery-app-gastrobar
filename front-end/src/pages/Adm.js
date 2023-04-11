@@ -7,7 +7,7 @@ import Navbar from '../components/Navbar';
 export default function Adm() {
   const {
     disable, setDisable,
-    Err,
+    setErr, Err,
     role, setRole,
   } = useContext(MyContext);
 
@@ -30,7 +30,10 @@ export default function Adm() {
 
   const postAdm = async (event) => {
     event.preventDefault();
-    await api('POST', 'admin/manage', { name: username, email, password, role });
+    await api('POST', 'admin/manage', { name: username, email, password, role })
+      .catch(() => {
+        setErr(true);
+      });
   };
 
   console.log(role);
@@ -85,13 +88,15 @@ export default function Adm() {
           {' '}
         </label>
         <select
+          value={ role }
+          name="role"
           data-testid="admin_manage__select-role"
           id="tipo"
           onChange={ (r) => setRole(r.target.value) }
         >
-          <option defaultValue> </option>
           <option value="seller">Vendedor</option>
           <option value="customer">Cliente</option>
+          <option value="administrator">Administrator</option>
         </select>
         <button
           data-testid="admin_manage__button-register"
