@@ -20,6 +20,7 @@ export default function Login() {
   const Red = async (event) => {
     event.preventDefault();
     setregister(true);
+    setErr(false);
   };
 
   const postLogin = async (event) => {
@@ -109,7 +110,12 @@ export default function Login() {
             Cadastrar-se
           </button>
           {Err
-            ? <h1>   Erro  </h1>
+            ? (
+              <div className={ styles.errorBox }>
+                <ion-icon name="warning-outline" />
+                <p>Senha ou Email incorreto</p>
+              </div>
+            )
             : <div />}
         </span>
       </div>
