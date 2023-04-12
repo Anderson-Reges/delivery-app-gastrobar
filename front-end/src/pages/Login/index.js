@@ -69,6 +69,7 @@ export default function Login() {
         <span className={ styles.loginLogo }>
           <ion-icon name="beer-outline" />
           <h2>GastroBar</h2>
+          <h3>Delivery</h3>
         </span>
         <span className={ styles.loginInputs }>
           <label
@@ -99,13 +100,13 @@ export default function Login() {
             type="submit"
             disabled={ disable }
           >
-            Login
+            Entrar
           </button>
           <button
             type="button"
             onClick={ Red }
           >
-            Register
+            Cadastrar-se
           </button>
           {Err
             ? <h1>   Erro  </h1>
