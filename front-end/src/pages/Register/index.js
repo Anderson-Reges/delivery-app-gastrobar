@@ -56,7 +56,6 @@ export default function Register() {
           >
             <ion-icon name="person-outline" />
             <input
-              data-testid="common_register__input-name"
               type="text"
               id="username"
               value={ username }
@@ -69,7 +68,6 @@ export default function Register() {
           >
             <ion-icon name="mail-outline" />
             <input
-              data-testid="common_register__input-email"
               type="email"
               id="email"
               value={ email }
@@ -82,7 +80,6 @@ export default function Register() {
           >
             <ion-icon name="key-outline" />
             <input
-              data-testid="common_register__input-password"
               type="password"
               id="password"
               value={ password }
@@ -91,14 +88,13 @@ export default function Register() {
             />
           </label>
           <button
-            data-testid="common_register__button-register"
             type="submit"
             disabled={ disable }
           >
             Cadastrar-se
           </button>
           {Err
-            ? <h1 data-testid="common_register__element-invalid_register">   Erro  </h1>
+            ? <h1>   Erro  </h1>
             : <div />}
         </span>
       </span>

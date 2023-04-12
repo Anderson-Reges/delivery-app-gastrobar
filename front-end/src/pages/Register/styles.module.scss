@@ -9,7 +9,6 @@
 
   .registerBox {
     display: flex;
-    border: 0.2em solid $secondary;
     height: 55vh;
     width: 50vw;
     border-radius: 1em;
@@ -66,12 +65,12 @@
       }
 
       button {
-        background: none;
+        background-color: $secondary;
         border: 2px solid $secondary;
         border-radius: 1em;
         width: 40%;
         height: 13%;
-        color: $secondary;
+        color: $text-white;
         font-weight: 600;
         transition: all 350ms ease-in-out;
 
