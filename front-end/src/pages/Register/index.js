@@ -94,7 +94,12 @@ export default function Register() {
             Cadastrar-se
           </button>
           {Err
-            ? <h1>   Erro  </h1>
+            ? (
+              <div className={ styles.errorBox }>
+                <ion-icon name="warning-outline" />
+                <p>Nome ou email já existente</p>
+              </div>
+            )
             : <div />}
         </span>
       </span>

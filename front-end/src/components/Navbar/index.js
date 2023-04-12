@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import MyContext from '../context/Context';
+import MyContext from '../../context/Context';
+import styles from './styles.module.scss';
 
 export default function Navbar() {
   const { loggedUser, setLoggedUser } = useContext(MyContext);
@@ -16,25 +17,29 @@ export default function Navbar() {
     switch (loggedUser.role) {
     case 'administrator':
       return (
-        <Link
-          to="/"
-          data-testid="customer_products__element-navbar-link-orders"
-        >
-          Gerenciar Usuarios
-        </Link>
+        <div className={ styles.navLinks }>
+          <Link
+            to="/"
+            data-testid="customer_products__element-navbar-link-orders"
+          >
+            Gerenciar Usuarios
+          </Link>
+        </div>
       );
     case 'seller':
       return (
-        <Link
-          to="/seller/orders"
-          data-testid="customer_products__element-navbar-link-orders"
-        >
-          Pedidos
-        </Link>
+        <div className={ styles.navLinks }>
+          <Link
+            to="/seller/orders"
+            data-testid="customer_products__element-navbar-link-orders"
+          >
+            Pedidos
+          </Link>
+        </div>
       );
     case 'customer':
       return (
-        <div>
+        <div className={ styles.navLinks }>
           <Link
             to="/customer/products"
             data-testid="customer_products__element-navbar-link-products"
@@ -56,13 +61,16 @@ export default function Navbar() {
 
   return (
     <header>
-      <div>
-        {renderByRole()}
-      </div>
-      <div>
-        <span
-          data-testid="customer_products__element-navbar-user-full-name"
-        >
+      <span className={ styles.HeaderLogo }>
+        <ion-icon name="beer-outline" />
+        <div>
+          <h2>GastroBar</h2>
+          <h3>Delivery</h3>
+        </div>
+      </span>
+      {renderByRole()}
+      <div className={ styles.userBox }>
+        <span>
           {loggedUser && loggedUser.name}
         </span>
         <a
@@ -70,7 +78,7 @@ export default function Navbar() {
           data-testid="customer_products__element-navbar-link-logout"
           onClick={ removeLoggedUser }
         >
-          Sair
+          <ion-icon name="log-out-outline" />
         </a>
       </div>
     </header>

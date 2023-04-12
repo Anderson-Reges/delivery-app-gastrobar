@@ -1,0 +1,87 @@
+@import '../../styles/global.scss';
+
+header {
+  display: flex;
+  justify-content: space-between;
+  padding-left: 4em;
+  height: 13vh;
+  background-color: $secondary;
+
+  .HeaderLogo {
+    display: flex;
+    align-items: center;
+    gap: 0.3em;
+    color: $primary;
+
+    ion-icon {
+      font-size: 3.5em;
+      color: $primary;
+    }
+  }
+
+  .navLinks {
+    display: flex;
+    color: $text-white;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    gap: 5em;
+    font-weight: 600;
+
+    a {
+      text-decoration: none;
+      width: 10em;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+      transition: border-bottom 250ms ease-in-out;
+
+      &:hover {
+        color: $primary;
+        border-bottom: 0.35em solid $primary;
+      }
+    }
+  }
+
+  .userBox {
+    display: flex;
+    align-items: center;
+    
+    span {
+      display: flex;
+      width: 10em;
+      height: 100%;
+      color: $secondary;
+      justify-content: center;
+      align-items: center;
+      background-color: $primary;
+      font-weight: 600;
+    }
+
+    a {
+      display: flex;
+      width: 7em;
+      height: 100%;
+      justify-content: center;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+      transition: border-bottom 250ms ease-in-out;
+
+      ion-icon {
+        font-size: 2em;
+        color: $text-white;
+      }
+
+      &:hover {
+        border-bottom: 0.35em solid $primary;
+
+        ion-icon {
+          color: $primary;
+        }
+      }
+    }
+  }
+}
