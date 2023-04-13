@@ -1,9 +1,10 @@
 import React, { useContext, useEffect } from 'react';
-import Navbar from '../components/Navbar';
-import CheckoutList from '../components/CheckoutList';
-import FinalizingCheckout from '../components/FinalizingCheckout';
-import api from '../utils/fetch';
-import MyContext from '../context/Context';
+import Navbar from '../../components/Navbar';
+import CheckoutList from '../../components/CheckoutList';
+import FinalizingCheckout from '../../components/FinalizingCheckout';
+import api from '../../utils/fetch';
+import MyContext from '../../context/Context';
+import styles from './styles.module.scss';
 
 export default function Checkout() {
   const {
@@ -29,14 +30,16 @@ export default function Checkout() {
   return (
     <main>
       <Navbar />
-      <CheckoutList
-        cartItens={ cartItens }
-        getProducts={ getProducts }
-      />
-      <FinalizingCheckout
-        sellers={ sellers }
-        cartItens={ cartItens }
-      />
+      <div className={ styles.checkoutContainer }>
+        <CheckoutList
+          cartItens={ cartItens }
+          getProducts={ getProducts }
+        />
+        <FinalizingCheckout
+          sellers={ sellers }
+          cartItens={ cartItens }
+        />
+      </div>
     </main>
   );
 }

@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useContext, useEffect } from 'react';
-import MyContext from '../context/Context';
+import MyContext from '../../context/Context';
+import styles from './styles.module.scss';
 
 export default function CheckoutList({ cartItens, getProducts }) {
   const { totalPrice, setTotalPrice } = useContext(MyContext);
@@ -18,63 +19,43 @@ export default function CheckoutList({ cartItens, getProducts }) {
   }, [removeItemInCart]);
 
   return (
-    <section>
+    <section className={ styles.checkoutListContainer }>
       <h3>Finalizar Pedido</h3>
       <table>
         <thead>
           <tr>
-            <th>Item</th>
-            <th>Descrição</th>
-            <th>Quantidade</th>
-            <th>Valor Unitario</th>
-            <th>Sub-total</th>
-            <th>Remover Item</th>
+            <th id={ styles.item }>Item</th>
+            <th id={ styles.nameTh }>Descrição</th>
+            <th id={ styles.quantityTh }>Quantidade</th>
+            <th id={ styles.priceTh }>Valor Unitario</th>
+            <th id={ styles.pricePerQuantityTh }>Sub-total</th>
+            <th id={ styles.removeButtonTh }>Remover Item</th>
           </tr>
         </thead>
         <tbody>
           {cartItens && cartItens.map((product, index) => (
             <tr key={ product.id }>
-              <td
-                data-testid={
-                  `customer_checkout__element-order-table-item-number-${index}`
-                }
-              >
+              <td id={ styles.numberItem }>
                 {index + 1}
               </td>
-              <td
-                data-testid={ `customer_checkout__element-order-table-name-${index}` }
-              >
+              <td id={ styles.nameItem }>
                 {product.name}
               </td>
-              <td
-                data-testid={ `customer_checkout__element-order-table-quantity-${index}` }
-              >
+              <td id={ styles.quantityItem }>
                 {product.quantity}
               </td>
-              <td
-                data-testid={
-                  `customer_checkout__element-order-table-unit-price-${index}`
-                }
-              >
+              <td id={ styles.priceItem }>
                 R$
                 {Number(product.price).toFixed(2).toString().replace('.', ',')}
               </td>
-              <td
-                data-testid={
-                  `customer_checkout__element-order-table-sub-total-${index}`
-                }
-              >
+              <td id={ styles.pricePerQuantity }>
                 R$
                 {
                   Number(product.price * product.quantity)
                     .toFixed(2).toString().replace('.', ',')
                 }
               </td>
-              <td
-                data-testid={
-                  `customer_checkout__element-order-table-remove-${index}`
-                }
-              >
+              <td id={ styles.removeButton }>
                 <input
                   type="button"
                   value="Remover"
@@ -84,10 +65,12 @@ export default function CheckoutList({ cartItens, getProducts }) {
             </tr>
           ))}
         </tbody>
+        <h2 className={ styles.totalPrice }>
+          Total: R$
+          {' '}
+          {totalPrice.toFixed(2).toString().replace('.', ',')}
+        </h2>
       </table>
-      <h2 data-testid="customer_checkout__element-order-total-price">
-        {totalPrice.toFixed(2).toString().replace('.', ',')}
-      </h2>
     </section>
   );
 }

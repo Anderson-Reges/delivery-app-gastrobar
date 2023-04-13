@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types';
 import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import api, { setToken } from '../utils/fetch';
-import MyContext from '../context/Context';
+import api, { setToken } from '../../utils/fetch';
+import MyContext from '../../context/Context';
+import styles from './styles.module.scss';
 
 export default function FinalizingCheckout({ sellers, cartItens }) {
   const {
@@ -26,6 +27,7 @@ export default function FinalizingCheckout({ sellers, cartItens }) {
       cartItens,
     });
     setOrderId(result.data.id);
+    localStorage.removeItem('products');
     history.push(`/customer/orders/${result.data.id}`);
   };
 
@@ -38,7 +40,7 @@ export default function FinalizingCheckout({ sellers, cartItens }) {
   return (
     <section>
       <h3>Detalhes e Endereço para Entrega</h3>
-      <form>
+      <form className={ styles.formCheckout }>
         <label htmlFor="Pessoa Vendendora">
           P.Vendendora Responsável:
           <select
@@ -78,14 +80,14 @@ export default function FinalizingCheckout({ sellers, cartItens }) {
             data-testid="customer_checkout__input-address-number"
           />
         </label>
+        <button
+          type="submit"
+          data-testid="customer_checkout__button-submit-order"
+          onClick={ onSubmit }
+        >
+          Finalizar Pedido
+        </button>
       </form>
-      <button
-        type="submit"
-        data-testid="customer_checkout__button-submit-order"
-        onClick={ onSubmit }
-      >
-        Finalizar Pedido
-      </button>
     </section>
   );
 }
