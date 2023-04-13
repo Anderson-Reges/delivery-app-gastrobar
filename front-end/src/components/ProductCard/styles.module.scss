@@ -1,0 +1,46 @@
+@import '../../styles/global.scss';
+
+.cardProduct {
+  display: flex;
+  width: 20vw;
+  align-items: center;
+  flex-direction: column;
+  box-shadow: 0px 0px 9px -3px;
+  border-radius: 1em;
+  gap: 1em;
+  padding: 1em 0em;
+
+  img {
+    width: 10em;
+    height: 10em;
+  }
+
+  div {
+    display: flex;
+    justify-content: center;
+
+    input {
+      width: 4vw;
+      height: 4.1em;
+      border: none;
+      outline: none;
+      box-sizing: border-box;
+      background: $secondary;
+      border-radius: 10em;
+      color: $primary;
+      text-align: center;
+      padding-left: 1.2em;
+      font-weight: bolder;
+    }
+
+    button {
+      border: none;
+      outline: none;
+      background-color: $primary;
+      width: 3em;
+      height: 3em;
+      border-radius: 10em;
+      font-weight: bolder;
+    }
+  }
+};

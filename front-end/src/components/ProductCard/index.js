@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useContext, useEffect, useState } from 'react';
-import MyContext from '../context/Context';
+import MyContext from '../../context/Context';
+import styles from './styles.module.scss';
 
 export default function ProductCard({ id, name, price, urlImage }) {
   const { setCartItens } = useContext(MyContext);
@@ -47,7 +48,7 @@ export default function ProductCard({ id, name, price, urlImage }) {
   }, [quantity]);
 
   return (
-    <div>
+    <div className={ styles.cardProduct }>
       <img
         data-testid={ `customer_products__img-card-bg-image-${id}` }
         src={ urlImage }
@@ -69,28 +70,31 @@ export default function ProductCard({ id, name, price, urlImage }) {
         {price.toString().replace('.', ',')}
 
       </h2>
-      <button
-        data-testid={ `customer_products__button-card-rm-item-${id}` }
-        onClick={ setProductQuantity }
-        type="button"
-        value="-"
-      >
-        -
-      </button>
-      <input
-        data-testid={ `customer_products__input-card-quantity-${id}` }
-        type="number"
-        value={ quantity }
-        onChange={ setQuantitValue }
-      />
-      <button
-        data-testid={ `customer_products__button-card-add-item-${id}` }
-        type="button"
-        onClick={ setProductQuantity }
-        value="+"
-      >
-        +
-      </button>
+      <div>
+        <button
+          data-testid={ `customer_products__button-card-rm-item-${id}` }
+          onClick={ setProductQuantity }
+          type="button"
+          value="-"
+        >
+          -
+        </button>
+        <input
+          data-testid={ `customer_products__input-card-quantity-${id}` }
+          type="number"
+          value={ quantity }
+          onChange={ setQuantitValue }
+          disabled
+        />
+        <button
+          data-testid={ `customer_products__button-card-add-item-${id}` }
+          type="button"
+          onClick={ setProductQuantity }
+          value="+"
+        >
+          +
+        </button>
+      </div>
     </div>
   );
 }

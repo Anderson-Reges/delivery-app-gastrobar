@@ -1,0 +1,44 @@
+@import '../../styles/global.scss';
+
+main {
+
+  .productsContainer {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    padding: 3em 4em 3em 4em;
+    justify-items: center;
+    row-gap: 2em;
+  }
+    
+  
+    .cartButton {
+      position: fixed;
+      bottom: 1em;
+      left: 1em;
+      border: none;
+      border-radius: 15em;
+      background-color: $primary;
+      color: $secondary;
+      height: 6em;
+      width: 6em;
+      transition: all 250ms ease-in-out;
+
+      ion-icon {
+        font-size: 2.6em;
+      }
+
+      p {
+        position: relative;
+        background-color: $secondary;
+        color: $primary;
+        border-radius: 2em;
+        width: 6em;
+        right: 0.4em;
+        top: 0.1em;
+      }
+
+      &:disabled {
+        opacity: 0.5;
+      }
+    }
+}

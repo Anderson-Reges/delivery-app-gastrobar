@@ -1,11 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import Navbar from '../components/Navbar';
-import MyContext from '../context/Context';
-import api from '../utils/fetch';
-import ProductCard from '../components/ProductCard';
+import { useHistory } from 'react-router-dom';
+import Navbar from '../../components/Navbar';
+import MyContext from '../../context/Context';
+import api from '../../utils/fetch';
+import ProductCard from '../../components/ProductCard';
+import styles from './styles.module.scss';
 
 export default function Products() {
+  const history = useHistory();
   const {
     products, setProducts,
     totalPrice, setTotalPrice,
@@ -16,6 +18,10 @@ export default function Products() {
   const getProducts = async () => {
     await api('GET', 'products')
       .then((info) => setProducts(info.data));
+  };
+
+  const redirectCheckout = () => {
+    history.push('/customer/checkout');
   };
 
   useEffect(() => {
@@ -31,7 +37,7 @@ export default function Products() {
   return (
     <main>
       <Navbar />
-      <div>
+      <div className={ styles.productsContainer }>
         {products && products.map(({ id, name, price, urlImage }) => (
           <ProductCard
             key={ id }
@@ -41,19 +47,20 @@ export default function Products() {
             urlImage={ urlImage }
           />
         ))}
-        <Link to="/customer/checkout">
-          <button
-            data-testid="customer_products__button-cart"
-            type="button"
-            disabled={ disabled }
-          >
-            Ver Carrinho: R$
-            <p data-testid="customer_products__checkout-bottom-value">
-              { totalPrice.toFixed(2).toString().replace('.', ',') }
-            </p>
-          </button>
-        </Link>
       </div>
+      <button
+        type="button"
+        disabled={ disabled }
+        className={ styles.cartButton }
+        onClick={ redirectCheckout }
+      >
+        <ion-icon name="cart" />
+        <p>
+          R$
+          {' '}
+          { totalPrice.toFixed(2).toString().replace('.', ',') }
+        </p>
+      </button>
     </main>
   );
 }

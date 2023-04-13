@@ -8,6 +8,7 @@ export default function Navbar() {
   const removeLoggedUser = (e) => {
     e.preventDefault();
     localStorage.removeItem('user');
+    localStorage.removeItem('products');
     window.location.href = '/';
   };
 
