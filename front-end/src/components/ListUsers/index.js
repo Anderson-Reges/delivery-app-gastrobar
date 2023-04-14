@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import api from '../utils/fetch';
+import api from '../../utils/fetch';
+import styles from './styles.module.scss';
 
 export default function ListUsers() {
   const [users, setUsers] = useState([]);
@@ -22,51 +23,39 @@ export default function ListUsers() {
   };
 
   useEffect(() => getUsers(), [users]);
+
   return (
-    <div>
+    <div className={ styles.tableContainer }>
       <table>
         <thead>
           <tr>
-            <th>Item</th>
-            <th>Nome</th>
-            <th>E-mail</th>
-            <th>Tipo</th>
-            <th>Excluir</th>
+            <th id={ styles.item }>Item</th>
+            <th id={ styles.name }>Nome</th>
+            <th id={ styles.email }>E-mail</th>
+            <th id={ styles.role }>Tipo</th>
+            <th id={ styles.removeUser }>Excluir</th>
           </tr>
         </thead>
         {loading ? (<h2>Carregando...</h2>)
           : (
-            users.map((user, index) => (
+            users.map((user) => (
               <tbody key={ user.id }>
                 <tr>
-                  <td
-                    data-testid={
-                      `admin_manage__element-user-table-item-number-${index}`
-                    }
-                  >
+                  <td id={ styles.userId }>
                     { user.id }
                   </td>
-                  <td
-                    data-testid={
-                      `admin_manage__element-user-table-name-${index}`
-                    }
-                  >
+                  <td id={ styles.userName }>
                     { user.name }
                   </td>
-                  <td
-                    data-testid={ `admin_manage__element-user-table-email-${index}` }
-                  >
+                  <td id={ styles.userEmail }>
                     { user.email }
                   </td>
-                  <td
-                    data-testid={ `admin_manage__element-user-table-role-${index}` }
-                  >
+                  <td id={ styles.userRole }>
                     { user.role }
                   </td>
-                  <td>
+                  <td id={ styles.removeUserButton }>
                     <button
                       type="button"
-                      data-testid={ `admin_manage__element-user-table-remove-${index}` }
                       onClick={ () => deleteUser(user.id) }
                     >
                       Excluir
