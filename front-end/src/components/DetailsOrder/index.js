@@ -10,7 +10,7 @@ export default function DetailsOrder({
   const { disableDelivered, setDisableDelivered } = useContext(MyContext);
   const NEGATIVE_FOUR = -4;
   const DATE_CUT_LIMIT = 10;
-  const [classBack, setClassBack] = useState(false);
+  const [classBack, setClassBack] = useState('');
 
   const putStatus = async (sta) => {
     await api('PUT', `/sales/${id}`, { status: sta })

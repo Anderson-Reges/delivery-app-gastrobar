@@ -42,7 +42,15 @@ export default function Login() {
   };
 
   useEffect(() => {
-    if (localStorage.getItem('user')) history.push('/customer/products');
+    if (
+      JSON.parse(localStorage.getItem('user')).role === 'customer'
+    ) history.push('/customer/products');
+    if (
+      JSON.parse(localStorage.getItem('user')).role === 'seller'
+    ) history.push('/seller/orders');
+    if (
+      JSON.parse(localStorage.getItem('user')).role === 'administrator'
+    ) history.push('/admin/manage');
     const minSizePass = 6;
     const emailVerify = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
     if (emailVerify.test(email) && password.length >= minSizePass) {

@@ -1,16 +1,19 @@
 import PropTypes from 'prop-types';
-import React, { useContext, useEffect } from 'react';
-import MyContext from '../context/Context';
-import api from '../utils/fetch';
+import React, { useContext, useEffect, useState } from 'react';
+import MyContext from '../../context/Context';
+import api from '../../utils/fetch';
+import styles from './styles.module.scss';
 
 export default function SellerDetailsOrder({
-  id, name, status, totalPrice, requestData, getOrder,
+  id, name, status, requestData, getOrder,
 }) {
   const {
     disableDelivery, setDisableDelivery, disablePreparing, setDisablePreparing,
   } = useContext(MyContext);
   const NEGATIVE_FOUR = -4;
   const DATE_CUT_LIMIT = 10;
+  const inTransit = 'Em Trânsito';
+  const [classBack, setClassBack] = useState('');
 
   const putStatus = async (sta) => {
     await api('PUT', `/sales/${id}`, { status: sta });
@@ -24,11 +27,23 @@ export default function SellerDetailsOrder({
       setDisableDelivery(false);
       break;
     case 'Delivery':
-      putStatus('Em Trânsito');
+      putStatus(inTransit);
       setDisableDelivery(true);
       break;
     default:
       break;
+    }
+  };
+
+  const setStatusBackground = () => {
+    if (status === 'Pendente') {
+      setClassBack(styles.pending);
+    } else if (status === 'Preparando') {
+      setClassBack(styles.preparing);
+    } else if (status === inTransit) {
+      setClassBack(styles.inTransit);
+    } else {
+      setClassBack(styles.delivered);
     }
   };
 
@@ -53,39 +68,32 @@ export default function SellerDetailsOrder({
       break;
     }
     getOrder();
+    setStatusBackground();
   }, [getOrder, setDisableDelivery, setDisablePreparing, status]);
 
   return (
-    <section>
-      <h4
-        data-testid="seller_order_details__element-order-details-label-order-id"
-      >
+    <section className={ styles.infoContainer }>
+      <h4 id={ styles.numberItem }>
         <p>
           Pedido
         </p>
         {(`0000${id}`).slice(NEGATIVE_FOUR)}
       </h4>
-      <h4
-        data-testid="seller_order_details__element-order-details-label-seller-name"
-      >
+      <h4 id={ styles.nameItem }>
         {name}
       </h4>
-      <h4
-        data-testid="seller_order_details__element-order-details-label-order-date"
-      >
+      <h4 id={ styles.dateItem }>
         {
           requestData.slice(0, DATE_CUT_LIMIT).split('-').reverse().join('/')
         }
       </h4>
-      <h4
-        data-testid="seller_order_details__element-order-details-label-delivery-status"
-      >
+      <h4 className={ `${styles.statusItem} ${classBack}` }>
         {status}
       </h4>
       <button
         type="button"
         value="Preparing"
-        data-testid="seller_order_details__button-preparing-check"
+        id={ styles.buttonItem }
         onClick={ setDisableButton }
         disabled={ disablePreparing }
       >
@@ -95,15 +103,12 @@ export default function SellerDetailsOrder({
       <button
         type="button"
         value="Delivery"
-        data-testid="seller_order_details__button-dispatch-check"
+        id={ styles.buttonItem }
         onClick={ setDisableButton }
         disabled={ disableDelivery }
       >
         Saiu para entrega
       </button>
-      <h2 data-testid="seller_order_details__element-order-total-price">
-        {totalPrice.replace('.', ',')}
-      </h2>
     </section>
   );
 }
