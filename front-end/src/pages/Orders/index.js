@@ -9,7 +9,8 @@ export default function Orders() {
   const { orders, setOrders } = useContext(MyContext);
 
   const getOrders = async () => {
-    await api('GET', 'sales')
+    const user = JSON.parse(localStorage.getItem('user'));
+    await api('GET', `sales/user/${user.id}`)
       .then((info) => setOrders(info.data));
   };
 

@@ -18,6 +18,14 @@ const create = async (sale) => {
   };
 };
 
+const getAllSalesByUser = async (id) => {
+  const sales = await Sale.findAll({
+    where: { userId: id },
+  });
+
+  return sales;
+};
+
 const getAll = async () => {
   const sale = await Sale.findAll();
   return sale;
@@ -54,6 +62,7 @@ const update = async (sale, id) => {
 
 module.exports = {
   getAll,
+  getAllSalesByUser,
   getById,
   create,
   update,
