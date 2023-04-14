@@ -6,6 +6,7 @@ import styles from './styles.module.scss';
 
 export default function Login() {
   const history = useHistory();
+  const ifExistLoggedUser = JSON.parse(localStorage.getItem('user'));
 
   const {
     email, setemail,
@@ -42,15 +43,21 @@ export default function Login() {
   };
 
   useEffect(() => {
-    if (
-      JSON.parse(localStorage.getItem('user')).role === 'customer'
-    ) history.push('/customer/products');
-    if (
-      JSON.parse(localStorage.getItem('user')).role === 'seller'
-    ) history.push('/seller/orders');
-    if (
-      JSON.parse(localStorage.getItem('user')).role === 'administrator'
-    ) history.push('/admin/manage');
+    if (JSON.parse(localStorage.getItem('user'))) {
+      switch (ifExistLoggedUser.role) {
+      case 'customer':
+        history.push('/customer/products');
+        break;
+      case 'seller':
+        history.push('/seller/orders');
+        break;
+      case 'administrator':
+        history.push('/admin/manage');
+        break;
+      default:
+        break;
+      }
+    }
     const minSizePass = 6;
     const emailVerify = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
     if (emailVerify.test(email) && password.length >= minSizePass) {
