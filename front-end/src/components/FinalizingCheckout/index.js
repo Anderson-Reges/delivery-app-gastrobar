@@ -38,7 +38,7 @@ export default function FinalizingCheckout({ sellers, cartItens }) {
   }, [sellers, setSelectSeller]);
 
   return (
-    <section>
+    <section className={ styles.finalizingCheckoutContainer }>
       <h3>Detalhes e Endereço para Entrega</h3>
       <form className={ styles.formCheckout }>
         <label htmlFor="Pessoa Vendendora">
