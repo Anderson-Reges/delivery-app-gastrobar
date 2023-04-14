@@ -1,0 +1,121 @@
+@import '../../styles/global.scss';
+
+.table {
+  width: 80vw;
+  display: flex;
+  flex-direction: column;
+  padding: 0em 2em 1.7em 2em;
+  border-radius: 1em;
+  gap: 0.5em;
+
+  thead {
+    tr {
+      display: flex;
+      justify-content: space-between;
+      th {
+         padding: 1em 0em;
+      }
+
+      #item {
+        width: 10%;
+      }
+
+      #nameTh{
+        width: 35%;
+      }
+
+      #quantityTh{
+        width: 15%;
+      }
+
+      #priceTh {
+        width: 15%;
+      }
+
+      #pricePerQuantityTh {
+        width: 15%;
+      }
+
+      #removeButtonTh {
+        width: 15%;
+      }
+    }
+  }
+
+  tbody {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3em;
+
+    tr {
+      display: flex;
+      align-items: center;
+
+      #numberItem {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: $secondary;
+        color: $primary;
+        width: 10%;
+        border-radius: 0.5em 0em 0em 0.5em;
+        height: 6vh;
+      }
+
+      #nameItem {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: $primary-ligth;
+        height: 6vh;
+        width: 48%;
+      }
+
+      #quantityItem {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 20%;
+        height: 6vh;
+        background-color: $secondary;
+        color: $primary;
+      }
+
+      #priceItem {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 20%;
+        height: 6vh;
+        background-color: $secondary;
+        color: $primary;
+      }
+
+      #pricePerQuantity {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 20%;
+        height: 6vh;
+        background-color: $secondary;
+        color: $primary;
+        border-radius: 0em 0.5em 0.5em 0em;
+      }
+    }
+
+  }
+
+  .totalPrice {
+    display: flex;
+    flex-direction: row-reverse;
+    background-color: $secondary;
+    height: 10vh;
+    margin-left: 78%;
+    align-items: center;
+    justify-content: center;
+    color: $primary;
+    border-radius: 0.5em;
+    margin-top: 2%;
+    font-size: x-large;
+  }
+}

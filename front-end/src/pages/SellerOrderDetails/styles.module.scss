@@ -1,0 +1,27 @@
+@import '../../styles/global.scss';
+
+.sellerorderDetailsContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1.5em 3em 3em 3em;
+
+  main {
+    width: 80vw;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+
+    h3 {
+      font-size: 1.4em;
+      border-bottom: 5px solid $primary;
+      width: 19%;
+    }
+
+    div {
+      box-shadow: 0px 0px 9px -3px;
+      border-radius: 1em 1em 1em 1em;
+    }
+  }
+}
