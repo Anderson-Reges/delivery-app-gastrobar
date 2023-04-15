@@ -19,6 +19,8 @@ Este projeto é uma aplicação de delivery que permite o cliente comprar e faze
 <a href="https://pt-br.reactjs.org/" target="_blank">![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)</a>
 <a href="https://sass-lang.com/" target="_blank">![SASS](https://img.shields.io/badge/SASS-hotpink.svg?style=for-the-badge&logo=SASS&logoColor=white)</a>
 
+# Com Docker :whale:
+
 ## Instalando Dependências
 
 ```
@@ -38,3 +40,29 @@ npm run db:reset
 ## Executando aplicação
 
 * Ao rodar o comando do docker acima o app ja estara rodando nas portas informadas
+
+# Sem o Docker 😥
+
+## Instalando Dependências
+
+> Back-end
+```
+cd back-end && npm install
+```
+
+> Front-end
+```
+cd front-end && npm install
+```
+
+## Executando aplicação
+
+> Back-end
+```
+cd back-end && npm run dev
+```
+
+> Front-end
+```
+cd front-end && npm start
+```
